@@ -4,6 +4,7 @@
   "description": "Web backend cesagua",
   "main": "index.js",
   "scripts": {
+    "start": "node ./dist/app",
     "dev": "start tsc --watch && nodemon --delay 0.5  dist/app"
   },
   "author": "",
