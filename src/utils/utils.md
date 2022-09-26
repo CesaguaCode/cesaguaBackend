@@ -1,0 +1,1 @@
+### Metodos utilitarios repetitivos en el backend.
