@@ -1,0 +1,11 @@
+{
+  "name": "cesaguaback",
+  "version": "1.0.0",
+  "description": "Web backend cesagua",
+  "main": "index.js",
+  "scripts": {
+    "dev": "start tsc --watch && nodemon --delay 0.5  dist/app"
+  },
+  "author": "",
+  "license": "ISC"
+}
