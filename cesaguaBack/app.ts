@@ -1,4 +1,8 @@
 import Server from "./src/config/server";
 
-const server = new Server();
-server.launch();
+try {
+    const server = new Server();
+    server.launch();
+} catch (error) {
+    console.log("Error launching server.",error);   
+}

@@ -1,0 +1,28 @@
+@hostname = localhost 
+@port = 4000 
+@host = {{hostname}}:{{port}} 
+@entity = test 
+@contentType = application/json
+
+### 
+GET http://{{host}}/{{entity}} HTTP/1.1
+
+### 
+GET http://{{host}}/{{entity}}/112 HTTP/1.1
+
+### 
+POST http://{{host}}/{{entity}} HTTP/1.1 content-type: {{contentType}}
+
+{
+"description": "sample"
+}
+
+### 
+PUT http://{{host}}/{{entity}}/4 HTTP/1.1 content-type: {{contentType}}
+
+{
+"description": "samples"
+}
+
+### 
+DELETE http://{{host}}/{{entity}}/12 HTTP/1.1
