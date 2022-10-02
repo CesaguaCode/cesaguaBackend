@@ -39,6 +39,7 @@ export default class Server {
   private routes() {
     this.app.use("/test", this.testRouter.getRouter());
     this.app.use("/news", this.newsRoutes.getRouter());
+    this.app.use("/users", this.newsRoutes.getRouter());
   }
 
   /**

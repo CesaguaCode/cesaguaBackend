@@ -11,7 +11,7 @@ export default class UserController{
     }
 
     public createUser = async (req: Request, res: Response) => {
-        const user: UserModel  = {
+        const user: UserModel = {
             name: req.body.name,
             lastName: req.body.lastName,
             mail: req.body.mail,
@@ -22,4 +22,33 @@ export default class UserController{
     
         res.status(result.state).json(result);
       };
+
+      public updateUser = async (req: Request, res: Response) => {
+        const user: UserModel = {
+            id: req.body.id,
+            name: req.body.name,
+            lastName: req.body.lastName,
+            mail: req.body.mail,
+            password: req.body.password,
+            rol:req.body.rol
+        }
+        const result = await this.service.updateUser(user);
+    
+        res.status(result.state).json(result);
+      };
+
+      public deleteUser = async(req:Request, res: Response) => {
+        const result = await this.service.deleteUser(req.body.id);
+        res.status(result.state).json(result);
+      }
+
+      public getAllUsers = async(req:Request, res: Response) => {
+        const result = await this.service.getAllUser();
+        res.status(result.state).json(result);
+      }
+
+      public getUserById = async(req:Request, res: Response) => {
+        const result = await this.service.getUserById(req.body.id);
+        res.status(result.state).json(result);
+      }
 }

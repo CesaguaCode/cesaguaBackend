@@ -10,9 +10,11 @@ export default class NewsRoutes{
         this.controller = new NewsController();
         this.router = Router();
 
-        //llamar las rutas
-
-       // this.router.get('/', this.controller.metodo);
+        this.router.post("/", this.controller.createNews);
+        this.router.put("/", this.controller.updateNews);
+        this.router.delete("/:id", this.controller.deletedNews);
+        this.router.get("/", this.controller.getAllNews);
+        this.router.get("/:id", this.controller.getNewsByid);
     }
 
     getRouter(){

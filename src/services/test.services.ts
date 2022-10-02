@@ -31,7 +31,9 @@ export default class TestService extends BaseService {
    * @returns  State and Result of query
    */
   public async getTest(id: number): Promise<any> {
-    const user: any = await this.db.executeProcedure(PROCEDURES.GET_BY_ID, [ id ]);
+    const user: any = await this.db.executeProcedure(PROCEDURES.GET_BY_ID, [
+      id,
+    ]);
     return user;
   }
 
@@ -40,7 +42,7 @@ export default class TestService extends BaseService {
    * @param name
    * @returns  State and Result of query
    */
-   public async createTest(name: string) {
+  public async createTest(name: string) {
     const result = await this.db.executeProcedure(PROCEDURES.CREATE, [name]);
     return result;
   }
@@ -62,7 +64,10 @@ export default class TestService extends BaseService {
    * @returns State and Result of query
    */
   public async updateTest(id: number, name: string) {
-    const result = await this.db.executeProcedure(PROCEDURES.UPDATE, [ id, name ]);
+    const result = await this.db.executeProcedure(PROCEDURES.UPDATE, [
+      id,
+      name,
+    ]);
     return result;
   }
 }
