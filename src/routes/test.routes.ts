@@ -28,9 +28,9 @@ export default class TestRouter {
 
         this.router.get('/', this.controller.listTests);
         this.router.get('/:id', this.validator.validateId, this.controller.listTest);
-        this.router.post('/', this.controller.createTest);
-        this.router.put('/:id', this.controller.updateTest);
-        this.router.delete('/:id', this.controller.deleteTest); 
+        this.router.post('/', this.validator.validateName, this.controller.createTest);
+        this.router.put('/:id', this.validator.validateAll, this.controller.updateTest);
+        this.router.delete('/:id', this.validator.validateId, this.controller.deleteTest); 
     }
 
     /**
