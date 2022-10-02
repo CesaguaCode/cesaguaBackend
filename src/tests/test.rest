@@ -8,14 +8,14 @@
 GET http://{{host}}/{{entity}} HTTP/1.1
 
 ### 
-GET http://{{host}}/{{entity}}/1 HTTP/1.1
+GET http://{{host}}/{{entity}}/a HTTP/1.1
 
 ### 
 POST http://{{host}}/{{entity}} HTTP/1.1 
 content-type: {{contentType}}
 
 {
-    "name": "Pruebaba"
+    "name": "Prueba"
 }
 
 ### 

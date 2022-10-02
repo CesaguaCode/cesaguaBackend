@@ -1,5 +1,6 @@
 import { Router } from "express";
 import TestController from "../controllers/test.controller";
+import TestValidations from "../validations/test.validations";
 
 export default class TestRouter {
 
@@ -7,6 +8,11 @@ export default class TestRouter {
      * Router controller
      */
     private controller:TestController;
+
+    /**
+     * Params validator
+     */
+    private validator:TestValidations;
     
     /**
      * Testing Router
@@ -15,10 +21,13 @@ export default class TestRouter {
     
     constructor(){
         this.controller = new TestController();
+
+        this.validator = new TestValidations();
+
         this.router = Router();
 
         this.router.get('/', this.controller.listTests);
-        this.router.get('/:id', this.controller.listTest);
+        this.router.get('/:id', this.validator.validateId, this.controller.listTest);
         this.router.post('/', this.controller.createTest);
         this.router.put('/:id', this.controller.updateTest);
         this.router.delete('/:id', this.controller.deleteTest); 
