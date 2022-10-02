@@ -1,6 +1,6 @@
 
 import { Router } from 'express';
-import OrganizationPerson from './../controllers/organizationPerson.controllers';
+import OrganizationPerson from '../controllers/OrganizationPerson.controllers';
 
 export default class OrganizationPersonRoutes{
 

@@ -5,7 +5,6 @@ import morgan from "morgan";
 
 import TestRouter from "../routes/test.routes";
 import NewsRoutes from "../routes/news.routes";
-import OrganizationPerson from './../controllers/organizationPerson.controllers';
 import UserRoutes from "../routes/users.routes";
 import OrganizationPersonRoutes from "../routes/orgperson.routes";
 
