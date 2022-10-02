@@ -15,8 +15,8 @@ export default class TestController {
    * This method returns a list of tests
    */
   public listTests = async (req: Request, res: Response) => {
-    const tests = await this.service.getTests();
-    res.status(200).json({ state: "success", tests });
+    const result = await this.service.getTests();
+    res.status(result.state).json(result);
   };
 
   /**
@@ -24,8 +24,8 @@ export default class TestController {
    */
   public listTest = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const test = await this.service.getTest(parseInt(id));
-    res.status(200).json({ state: "success", test });
+    const result = await this.service.getTest(parseInt(id));
+    res.status(result.state).json(result);
   };
 
   /**
@@ -35,11 +35,27 @@ export default class TestController {
     const { name } = req.body;
     const result = await this.service.createTest(name);
 
-    if(result){
-      res.status(200).json({ state: "success" });
-    }else{
-      res.status(400).json({ state: "failure" });
-    }
-    
+    res.status(result.state).json(result);
+  };
+
+  /**
+   * This methood allows delete a test
+   */
+  public deleteTest = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const result = await this.service.deleteTest(parseInt(id));
+
+    res.status(result.state).json(result);
+  };
+
+  /**
+   * This methood allows edit a test
+   */
+  public updateTest = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { name } = req.body;
+    const result = await this.service.updateTest(parseInt(id), name);
+
+    res.status(result.state).json(result);
   };
 }

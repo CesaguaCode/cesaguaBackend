@@ -1,6 +1,8 @@
-export default interface TestModel{
-    /**
-     * Name field
-     */
-    name: string
+export default interface TestModel {
+  id?: number;
+
+  /**
+   * Name field
+   */
+  name: string;
 }

@@ -20,6 +20,8 @@ export default class TestRouter {
         this.router.get('/', this.controller.listTests);
         this.router.get('/:id', this.controller.listTest);
         this.router.post('/', this.controller.createTest);
+        this.router.put('/:id', this.controller.updateTest);
+        this.router.delete('/:id', this.controller.deleteTest); 
     }
 
     /**

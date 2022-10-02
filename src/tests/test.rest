@@ -15,7 +15,7 @@ POST http://{{host}}/{{entity}} HTTP/1.1
 content-type: {{contentType}}
 
 {
-"name": "Prueba"
+    "name": "Pruebaba"
 }
 
 ### 
@@ -23,8 +23,8 @@ PUT http://{{host}}/{{entity}}/4 HTTP/1.1
 content-type: {{contentType}}
 
 {
-"name": "Pruebas"
+    "name": "Sirviendo"
 }
 
 ### 
-DELETE http://{{host}}/{{entity}}/12 HTTP/1.1
+DELETE http://{{host}}/{{entity}}/2 HTTP/1.1

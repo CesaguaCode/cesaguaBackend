@@ -1,48 +1,68 @@
-import DataBase from "../config/database";
+import BaseService from "../utils/baseService";
 
-export default class TestService {
-  private db: DataBase;
+/**
+ * List of the stored procedures of this service
+ */
+const PROCEDURES = {
+  GET_ALL: "sp_tests_getAll()",
+  GET_BY_ID: "sp_tests_getByID(?)",
+  CREATE: "sp_tests_create(?)",
+  DELETE: "sp_tests_delete(?)",
+  UPDATE: "sp_tests_update(?, ?)",
+};
 
+export default class TestService extends BaseService {
   constructor() {
-    this.db = new DataBase();
+    super();
+  }
+
+  /**
+   * This method request the list of tests from the database
+   * @returns  State and Result of query
+   */
+  public async getTests() {
+    const users: any = await this.db.executeProcedure(PROCEDURES.GET_ALL);
+    return users;
+  }
+
+  /**
+   * This method request a test to the database passing its id
+   * @param id
+   * @returns  State and Result of query
+   */
+  public async getTest(id: number): Promise<any> {
+    const user: any = await this.db.executeProcedure(PROCEDURES.GET_BY_ID, [ id ]);
+    return user;
   }
 
   /**
    * This method allows the creation of tests at the database
    * @param name
-   * @returns Number of affected rows
+   * @returns  State and Result of query
    */
-  public async createTest(name: string) {
-    const sql = `INSERT INTO tb_tests (name) VALUES ('${name}')`;
-
-    return await this.db
-      .getConnection()
-      .promise()
-      .query(sql)
-      .then((data: any) => data[0].affectedRows > 0)
-      .catch((err) => false);
+   public async createTest(name: string) {
+    const result = await this.db.executeProcedure(PROCEDURES.CREATE, [name]);
+    return result;
   }
 
   /**
-   * This method request the list of tests from the database
-   * @returns List of tests
-   */
-  public async getTests() {
-    const sql = `SELECT * FROM tb_tests`;
-
-    const users: any = await this.db.getConnection().promise().query(sql);
-    return users[0];
-  }
-
-  /**
-   * This method request an test to the database passing its id
+   * This method delete a test from the database by id
    * @param id
-   * @returns Specific test
+   * @returns State and Result of query
    */
-  public async getTest(id: number): Promise<any> {
-    const sql = `SELECT * FROM tb_tests where id = ${id}`;
+  public async deleteTest(id: number) {
+    const result = await this.db.executeProcedure(PROCEDURES.DELETE, [id]);
+    return result;
+  }
 
-    const user: any = await this.db.getConnection().promise().query(sql);
-    return user[0][0];
+  /**
+   * This method delete a test from the database by id
+   * @param id
+   * @param name
+   * @returns State and Result of query
+   */
+  public async updateTest(id: number, name: string) {
+    const result = await this.db.executeProcedure(PROCEDURES.UPDATE, [ id, name ]);
+    return result;
   }
 }
