@@ -1,0 +1,40 @@
+@hostname = localhost 
+@port = 3200 
+@host = {{hostname}}:{{port}} 
+@entity = milestone 
+@contentType = application/json
+
+### 
+GET http://{{host}}/{{entity}} HTTP/1.1
+
+### 
+GET http://{{host}}/{{entity}}/1 HTTP/1.1
+
+### 
+POST http://{{host}}/{{entity}} HTTP/1.1 
+content-type: {{contentType}}
+
+{
+    "title": "Some milestone",
+    "description":"Some milestone", 
+    "image":"", 
+    "userId": "1"
+}
+
+### 
+PUT http://{{host}}/{{entity}}/2 HTTP/1.1 
+content-type: {{contentType}}
+
+{
+    "title": "Some updated milestone",
+    "description":"Some updated milestone", 
+    "image":""
+}
+
+### 
+DELETE http://{{host}}/{{entity}}/1 HTTP/1.1
+content-type: {{contentType}}
+
+{
+    "userId": "1"
+}

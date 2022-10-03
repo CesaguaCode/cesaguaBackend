@@ -1,0 +1,44 @@
+@hostname = localhost 
+@port = 3200 
+@host = {{hostname}}:{{port}} 
+@entity = pin 
+@contentType = application/json
+
+### 
+GET http://{{host}}/{{entity}} HTTP/1.1
+
+### 
+GET http://{{host}}/{{entity}}/1 HTTP/1.1
+
+### 
+POST http://{{host}}/{{entity}} HTTP/1.1 
+content-type: {{contentType}}
+
+{
+    "name": "Asada la prueba de node",
+    "province":"Limón", 
+    "canton":"Pococí" , 
+    "district":"Guápiles", 
+    "position":"[10.18,-83.74]",
+    "userId": "1"
+}
+
+### 
+PUT http://{{host}}/{{entity}}/1 HTTP/1.1 
+content-type: {{contentType}}
+
+{
+    "name": "Asada la prueba de node",
+    "province":"Limón", 
+    "canton":"Pococí" , 
+    "district":"Guápiles", 
+    "position":"[10.18,-83.74]"
+}
+
+### 
+DELETE http://{{host}}/{{entity}}/1 HTTP/1.1
+content-type: {{contentType}}
+
+{
+    "userId": "1"
+}

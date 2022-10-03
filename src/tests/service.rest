@@ -1,0 +1,48 @@
+@hostname = localhost 
+@port = 3200 
+@host = {{hostname}}:{{port}} 
+@entity = pin 
+@contentType = application/json
+
+### 
+GET http://{{host}}/{{entity}} HTTP/1.1
+
+### 
+GET http://{{host}}/{{entity}}/1 HTTP/1.1
+
+### 
+POST http://{{host}}/{{entity}} HTTP/1.1 
+content-type: {{contentType}}
+
+{
+    "title": "Some service",
+    "description":"Some description", 
+    "details":"[]" , 
+    "image":"", 
+    "thumbnail":"",
+    "contactId": "1",
+    "userId": "1"
+}
+
+### 
+PUT http://{{host}}/{{entity}}/5 HTTP/1.1 
+content-type: {{contentType}}
+
+{
+    "title": "Some updated service",
+    "description":"Some updated description", 
+    "details":"[]" , 
+    "image":"", 
+    "thumbnail":"",
+    "contactId": "1",
+    "userId": "1"
+}
+
+
+### 
+DELETE http://{{host}}/{{entity}}/1 HTTP/1.1
+content-type: {{contentType}}
+
+{
+    "userId": "1"
+}
