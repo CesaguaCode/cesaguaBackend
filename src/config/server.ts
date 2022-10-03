@@ -56,7 +56,6 @@ export default class Server {
     this.app.use("/news", this.newsRoutes.getRouter());
     this.app.use("/users", this.userRoutes.getRouter());
     this.app.use("/person", this.organizationPerson.getRouter());
-    this.app.use("/users", this.newsRoutes.getRouter());
     this.app.use("/pin", this.pinRouter.getRouter());
     this.app.use("/service", this.serviceRouter.getRouter());
     this.app.use("/milestone", this.milestoneRouter.getRouter());

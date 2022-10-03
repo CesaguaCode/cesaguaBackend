@@ -13,5 +13,8 @@ contructor(){}
   
     }
 
+    private check(conditions:Array<any>, param:any, paramName:string){
+       
+    }
 
 }

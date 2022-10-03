@@ -1,43 +1,67 @@
 import { Request, Response, NextFunction } from "express";
+import Validation from "../utils/validators";
 
-export default class TestValidations{
+export default class TestValidations {
+  /**
+   * Validate on GET or DELETE
+   */
+  public validateId(req: Request, res: Response, next: NextFunction) {
+    const { id } = req.params;
 
-contructor(){}
+    if (!TestValidations.isValidId(id)) {
+      return res.status(406).json({ status:406, message: "Error, id inválido." });
+    }
+    next();
+  }
 
-    public validateId(req:Request, res:Response, next:NextFunction){
-        const id = parseInt(req.params.id);
+  /**
+   * Validate on POST
+   */
+  public validatePost(req: Request, res: Response, next: NextFunction) {
+    const { name } = req.body;
 
-        if (!id || isNaN(id) || id < 0){
-            return res.status(400).json({message: "Error, Id inválido."})
-        }
-
-        next();
+    if (!TestValidations.isValidName(name)) {
+      return res.status(406).json({ status:406, message: "Error, nombre inválido." });
     }
 
-    public validateName(req:Request, res:Response, next:NextFunction){
-        const name = req.body.name;
+    next();
+  }
 
-        if (!name || name.lenght === 0 ){
-            return res.status(400).json({message: "Error, nombre inválido."})
-        }
+  /**
+   * Validate on PUT
+   */
+  public validatePut(req: Request, res: Response, next: NextFunction) {
+    const { id } = req.params;
+    const { name } = req.body;
 
-        next();
+    if (!TestValidations.isValidId(id)) {
+      return res.status(406).json({ status:406, message: "Error, invalid id." });
     }
 
-    public validateAll(req:Request, res:Response, next:NextFunction){
-        const id = parseInt(req.params.id);
-        const name = req.body.name;
-
-        if (!id || isNaN(id) || id < 0){
-            return res.status(400).json({message: "Error, id inválido."})
-        }
-
-        if (!name || name.lenght === 0 ){
-            return res.status(400).json({message: "Error, nombre inválido."})
-        }
-
-        next();
+    if (!TestValidations.isValidName(name)) {
+      return res.status(406).json({ status:406, message: "Error, invalid name." });
     }
 
+    next();
+  }
 
+  private static isValidId(id: string) {
+    const conditions = [
+      Validation.isNumber(id),
+      Validation.isMinNumber(parseInt(id), 1),
+      Validation.isMaxNumber(parseInt(id), Number.MAX_SAFE_INTEGER),
+    ];
+
+    return Validation.isValid(conditions);
+  }
+
+  private static isValidName(name: string) {
+    const conditions = [
+      Validation.isText(name),
+      Validation.isMinSize(name, 1),
+      Validation.isMinSize(name, 15),
+    ];
+
+    return Validation.isValid(conditions);
+  }
 }
