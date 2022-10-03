@@ -9,7 +9,7 @@ export default class TestValidations {
     const { id } = req.params;
 
     if (!TestValidations.isValidId(id)) {
-      return res.status(406).json({ status:406, message: "Error, id inválido." });
+      return res.status(406).json({ status:406, message: "Error, invalid id." });
     }
     next();
   }
@@ -21,7 +21,7 @@ export default class TestValidations {
     const { name } = req.body;
 
     if (!TestValidations.isValidName(name)) {
-      return res.status(406).json({ status:406, message: "Error, nombre inválido." });
+      return res.status(406).json({ status:406, message: "Error, invalid name." });
     }
 
     next();

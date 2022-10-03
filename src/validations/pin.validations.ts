@@ -9,12 +9,4 @@ contructor(){}
     }
 
 
-    public validateAll(req:Request, res:Response, next:NextFunction){
-  
-    }
-
-    private check(conditions:Array<any>, param:any, paramName:string){
-       
-    }
-
 }

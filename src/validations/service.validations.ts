@@ -9,9 +9,5 @@ contructor(){}
     }
 
 
-    public validateAll(req:Request, res:Response, next:NextFunction){
-  
-    }
-
 
 }
