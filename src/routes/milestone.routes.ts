@@ -1,5 +1,6 @@
 import { Router } from "express";
 import MilestoneController from "../controllers/milestone.controller";
+import TokenAuth from "../utils/tokenAuth";
 import MilestoneValidations from "../validations/milestone.validations";
 
 export default class MilestoneRouter {
@@ -21,16 +22,43 @@ export default class MilestoneRouter {
     
     constructor(){
         this.controller = new MilestoneController();
-
         this.validator = new MilestoneValidations();
-
         this.router = Router();
 
-        this.router.get('/', this.controller.listMilestones);
-        this.router.get('/:id',  this.controller.listMilestone);
-        this.router.post('/', this.controller.createMilestone);
-        this.router.put('/:id', this.controller.updateMilestone);
-        this.router.delete('/:id', this.controller.deleteMilestone); 
+        this.router.get(
+            '/', 
+            this.controller.listMilestones
+        );
+
+        this.router.get(
+            '/:id',
+            this.validator.validateId,  
+            this.controller.listMilestone
+        );
+
+        this.router.post(
+            '/',
+            TokenAuth.checkToken, 
+            TokenAuth.adminRol,
+            this.validator.validatePost,
+            this.controller.createMilestone
+        );
+
+        this.router.put(
+            '/:id',
+            TokenAuth.checkToken,
+            TokenAuth.adminRol, 
+            this.validator.validatePut,
+            this.controller.updateMilestone
+        );
+
+        this.router.delete(
+            '/:id',
+            TokenAuth.checkToken,
+            TokenAuth.adminRol,
+            this.validator.validateId,  
+            this.controller.deleteMilestone
+        ); 
     }
 
     /**

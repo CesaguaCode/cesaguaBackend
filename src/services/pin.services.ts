@@ -12,6 +12,9 @@ const PROCEDURES = {
   UPDATE: "sp_pins_update(?, ?, ?, ?, ?, ?)",
 };
 
+/**
+ * This class allows the conection to database to get Map Pins
+ */
 export default class PinService extends BaseService {
   constructor() {
     super();

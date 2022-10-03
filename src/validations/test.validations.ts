@@ -1,18 +1,8 @@
 import { Request, Response, NextFunction } from "express";
+import BaseValidations from "../utils/baseValidations";
 import Validation from "../utils/validators";
 
-export default class TestValidations {
-  /**
-   * Validate on GET or DELETE
-   */
-  public validateId(req: Request, res: Response, next: NextFunction) {
-    const { id } = req.params;
-
-    if (!TestValidations.isValidId(id)) {
-      return res.status(406).json({ status:406, message: "Error, invalid id." });
-    }
-    next();
-  }
+export default class TestValidations extends BaseValidations {
 
   /**
    * Validate on POST
@@ -43,16 +33,6 @@ export default class TestValidations {
     }
 
     next();
-  }
-
-  private static isValidId(id: string) {
-    const conditions = [
-      Validation.isNumber(id),
-      Validation.isMinNumber(parseInt(id), 1),
-      Validation.isMaxNumber(parseInt(id), Number.MAX_SAFE_INTEGER),
-    ];
-
-    return Validation.isValid(conditions);
   }
 
   private static isValidName(name: string) {

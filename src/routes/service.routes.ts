@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import ServiceController from "../controllers/service.controller";
+import TokenAuth from "../utils/tokenAuth";
 import ServiceValidations from "../validations/service.validations";
 
 export default class ServiceRouter {
@@ -22,16 +23,44 @@ export default class ServiceRouter {
     
     constructor(){
         this.controller = new ServiceController();
-
         this.validator = new ServiceValidations();
-
         this.router = Router();
 
-        this.router.get('/', this.controller.listServices);
-        this.router.get('/:id',  this.controller.listService);
-        this.router.post('/', this.controller.createService);
-        this.router.put('/:id', this.controller.updateService);
-        this.router.delete('/:id', this.controller.deleteService); 
+        this.router.get(
+            '/', 
+            this.controller.listServices
+        );
+
+        this.router.get(
+            '/:id',
+            this.validator.validateId,  
+            this.controller.listService
+        );
+
+        this.router.post(
+            '/',
+            TokenAuth.checkToken,
+            TokenAuth.adminRol,  
+            this.validator.validatePost,
+            this.controller.createService
+        );
+
+        this.router.put(
+            '/:id',
+            TokenAuth.checkToken,
+            TokenAuth.adminRol, 
+            this.validator.validatePut,
+            this.controller.updateService
+        );
+
+        this.router.delete(
+            '/:id', 
+            TokenAuth.checkToken,
+            TokenAuth.adminRol,
+            this.validator.validateId, 
+            this.controller.deleteService
+        ); 
+
     }
 
     /**

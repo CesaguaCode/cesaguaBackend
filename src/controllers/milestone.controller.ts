@@ -46,7 +46,7 @@ export default class MilestoneController {
     const { id } = req.params;
 
     // TODO: OBTENER ID DEL TOKEN NO COMO PARTE DEL BODY
-    const { userId } = req.body;
+    const { userId } = req.token;
 
     const result = await this.service.deleteMilestone(parseInt(id), userId);
     

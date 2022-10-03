@@ -13,27 +13,30 @@ GET http://{{host}}/{{entity}}/1 HTTP/1.1
 ### 
 POST http://{{host}}/{{entity}} HTTP/1.1 
 content-type: {{contentType}}
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7InVzZXJJZCI6MSwicm9sIjozfSwiaWF0IjoxNjY0ODM0NTkyLCJleHAiOjE2NjQ4NzA1OTJ9.sGvuXZrJcbQtfxKZJ3h7FJqIIHPD2-03-DzHxMzl10U
 
 {
     "title": "Some milestone",
-    "description":"Some milestone", 
-    "image":"", 
+    "description":"Some milestone°", 
+    "image":" ", 
     "userId": "1"
 }
 
 ### 
 PUT http://{{host}}/{{entity}}/2 HTTP/1.1 
 content-type: {{contentType}}
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7InVzZXJJZCI6MSwicm9sIjozfSwiaWF0IjoxNjY0ODM0NTkyLCJleHAiOjE2NjQ4NzA1OTJ9.sGvuXZrJcbQtfxKZJ3h7FJqIIHPD2-03-DzHxMzl10U
 
 {
-    "title": "Some updated milestone",
+    "title": "Some updated milestonwe",
     "description":"Some updated milestone", 
-    "image":""
+    "image":" "
 }
 
 ### 
 DELETE http://{{host}}/{{entity}}/1 HTTP/1.1
 content-type: {{contentType}}
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7InVzZXJJZCI6MSwicm9sIjozfSwiaWF0IjoxNjY0ODM0NTkyLCJleHAiOjE2NjQ4NzA1OTJ9.sGvuXZrJcbQtfxKZJ3h7FJqIIHPD2-03-DzHxMzl10U
 
 {
     "userId": "1"

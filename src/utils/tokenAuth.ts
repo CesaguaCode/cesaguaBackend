@@ -2,15 +2,14 @@ import { Request, Response, NextFunction as Next } from "express";
 import jwt from "jsonwebtoken";
 
 const ROLES = {
-    NONE:0,
-    EDITOR:1,
-    ADMIN:2,
-    SADMIN:3
-}
+  NONE: 0,
+  EDITOR: 1,
+  ADMIN: 2,
+  SADMIN: 3,
+};
 
 export default class TokenAuth {
-  static createToken = async (auth: any) => {
-    
+  public static createToken = async (auth: any) => {
     return new Promise((res) => {
       const key = process.env.TOKEN_KEY;
 
@@ -24,18 +23,25 @@ export default class TokenAuth {
     });
   };
 
-  static checkToken = (req: Request, res: Response, next: Next) => {
+  public static checkToken = async (
+    req: Request,
+    res: Response,
+    next: Next
+  ) => {
     const bearerHeader = req.headers["authorization"];
+
     if (!bearerHeader) {
       return res.status(403).json({ status: 403, message: "Token not found" });
     }
 
     const bearerToken = bearerHeader.split(" ")[1];
 
-    const checkToken: any = this.validateToken(bearerToken)
+    const checkToken: any = await this.validateToken(bearerToken);
 
-    if(checkToken.status !== 200 ){
-        return res.status(checkToken.status)
+    
+
+    if (checkToken.status !== 200) {
+      return res.status(checkToken.status);
     }
 
     req.token = checkToken.item;
@@ -43,30 +49,48 @@ export default class TokenAuth {
     next();
   };
 
-  static adminRol = (req: Request, res: Response, next: Next) => {
-    if(req.token.rol < ROLES.SADMIN){
-        return { status: 403, message: "Needs to be admin to access" };
-    }
-  }
+  public static editorRol = async (req: Request, res: Response, next: Next) => {
 
-  static superAdminRol = (req: Request, res: Response, next: Next) => {
-    if(req.token.rol < ROLES.ADMIN){
-        return { status: 403, message: "Needs to be super-admin to access" };
+    if (req.token.rol < ROLES.SADMIN) {
+      return res.status(403).json({ status: 403, message: "Needs to be super-admin to access" });
     }
-  }
-   
-  static validateToken (token:any) {
+
+    next()
+  };
+
+
+  public static adminRol = (req: Request, res: Response, next: Next) => {
+  
+    if (req.token.rol < ROLES.ADMIN) {
+      return res.status(403).json( { status: 403, message: "Needs to be admin to access" });
+    }
+
+    next()
+  };
+
+  public static superAdminRol = async (req: Request, res: Response, next: Next) => {
+
+    if (req.token.rol < ROLES.SADMIN) {
+      return res.status(403).json({ status: 403, message: "Needs to be super-admin to access" });
+    }
+
+    next()
+  };
+  
+
+  private static async validateToken(token: any) {
     const key = process.env.TOKEN_KEY;
 
     if (!key) return { status: 500, message: "Server can not validate token" };
 
-    jwt.verify(token, `${key}`, (err: any, data: any) => {
-      if (err) {
-        return { status: 403, message: "Invalid token" };
-      }
+    return new Promise((res) => {
+      jwt.verify(token, `${key}`, (err: any, data: any) => {
+        if (err) {
+          res({ status: 403, message: "Invalid token" });
+        }
 
-      return { status: 200, item: data.auth };
-   
+        res({ status: 200, item: data.auth });
+      });
     });
-  };
+  }
 }

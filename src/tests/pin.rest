@@ -13,6 +13,7 @@ GET http://{{host}}/{{entity}}/1 HTTP/1.1
 ### 
 POST http://{{host}}/{{entity}} HTTP/1.1 
 content-type: {{contentType}}
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7InJvbCI6MH0sImlhdCI6MTY2NDgyMzkwMywiZXhwIjoxNjY0ODU5OTAzfQ.XBmvVjmIwnJuLexmMyK8q1VFf0JNpE4g1juIKtBXqnE
 
 {
     "name": "Asada la prueba de node",
@@ -26,6 +27,7 @@ content-type: {{contentType}}
 ### 
 PUT http://{{host}}/{{entity}}/1 HTTP/1.1 
 content-type: {{contentType}}
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7InJvbCI6MH0sImlhdCI6MTY2NDgyMzkwMywiZXhwIjoxNjY0ODU5OTAzfQ.XBmvVjmIwnJuLexmMyK8q1VFf0JNpE4g1juIKtBXqnE
 
 {
     "name": "Asada la prueba de node",
@@ -38,6 +40,7 @@ content-type: {{contentType}}
 ### 
 DELETE http://{{host}}/{{entity}}/1 HTTP/1.1
 content-type: {{contentType}}
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7InJvbCI6MH0sImlhdCI6MTY2NDgyMzkwMywiZXhwIjoxNjY0ODU5OTAzfQ.XBmvVjmIwnJuLexmMyK8q1VFf0JNpE4g1juIKtBXqnE
 
 {
     "userId": "1"
