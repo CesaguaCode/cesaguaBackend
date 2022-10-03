@@ -1,5 +1,5 @@
 export default interface NewsModel{
-    id? : number;
+    id?: number;
     title: string;
     description: string;
     image: string;
@@ -7,7 +7,7 @@ export default interface NewsModel{
     views?: number;
     createAt?: Date;
     updatedAt?: Date;
-    createBy?: Date;
+    createdBy?: Date;
     updatedBy?: Date;
     deletedBy?: Date;
     deleted?: number;

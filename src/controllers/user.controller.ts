@@ -30,15 +30,21 @@ export default class UserController{
             lastName: req.body.lastName,
             mail: req.body.mail,
             password: req.body.password,
-            rol:req.body.rol
+            rol:req.body.rol,
+            deleted: req.body.deleted
         }
+        console.log(user);
         const result = await this.service.updateUser(user);
     
         res.status(result.state).json(result);
       };
 
       public deleteUser = async(req:Request, res: Response) => {
-        const result = await this.service.deleteUser(req.body.id);
+      
+        const {id} = req.params;
+        const {deletedby} = req.body;
+
+        const result = await this.service.deleteUser(parseInt(id),deletedby);
         res.status(result.state).json(result);
       }
 
@@ -48,7 +54,8 @@ export default class UserController{
       }
 
       public getUserById = async(req:Request, res: Response) => {
-        const result = await this.service.getUserById(req.body.id);
+        const {id} = req.params;
+        const result = await this.service.getUserById(parseInt(id));
         res.status(result.state).json(result);
       }
 }

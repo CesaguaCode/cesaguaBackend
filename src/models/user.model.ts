@@ -5,6 +5,7 @@ export default interface User{
     mail: string;
     password: string;
     rol: number;
+    deleted?: number;
     createdAt?: Date;
     updateAt?: Date; 
 }

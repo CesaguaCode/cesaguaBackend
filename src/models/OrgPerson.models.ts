@@ -9,6 +9,7 @@ export default interface OrganizationPersonModel {
     createAt?: Date;
     updateAt?: Date;
     createBy?: Date;
+    updatedBy?: Date;
     dateleBy?: Date;
     deleted?: number;
 }

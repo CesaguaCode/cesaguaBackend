@@ -5,8 +5,8 @@ const PROCEDURES = {
   GET_ALL: "sp_organization_person_getAll()",
   GET_BY_ID: "sp_users_GetById(?)",
   CREATE: "sp_users_create(?,?,?,?,?)",
-  DELETE: "sp_users_delete(?)",
-  UPDATE: "sp_users_update(?, ?,?,?,?,?,?)",
+  DELETE: "sp_users_delete(?,?)",
+  UPDATE: "sp_users_update(?,?,?,?,?,?,?)"
 };
 
 export default class UsersServices extends BaseService {
@@ -30,8 +30,8 @@ export default class UsersServices extends BaseService {
     return result;
   }
 
-  public async deleteUser(id: number) {
-    const result = await this.db.executeProcedure(PROCEDURES.DELETE, [id]);
+  public async deleteUser(id: number, deletedby: number) {
+    const result = await this.db.executeProcedure(PROCEDURES.DELETE, [id,deletedby]);
     return result;
   }
 

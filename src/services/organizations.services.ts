@@ -8,8 +8,8 @@ const PROCEDURES = {
   GET_ALL: `sp_organization_person_getAll()`,
   GET_BY_ID: `sp_organization_person_getbyid(?)`,
   CREATE: `sp_organization_person_create(?,?,?,?,?,?,?)`,
-  DELETE: `sp_organization_person_delete(?)`,
-  UPDATE: `sp_organization_person_update(?,?,?,?,?,?,?)`,
+  DELETE: `sp_organization_person_delete(?,?)`,
+  UPDATE: `sp_organization_person_update(?,?,?,?,?,?,?,?)`,
 };
 
 export default class OrganizationServices extends BaseService {
@@ -33,8 +33,8 @@ export default class OrganizationServices extends BaseService {
         return result;
       }
     
-      public async deleteOrganizationPerson(id: number) {
-        const result = await this.db.executeProcedure(PROCEDURES.DELETE, [id]);
+      public async deleteOrganizationPerson(id: number, deletedby:number) {
+        const result = await this.db.executeProcedure(PROCEDURES.DELETE, [id, deletedby]);
         return result;
       }
     

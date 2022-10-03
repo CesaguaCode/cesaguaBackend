@@ -12,8 +12,8 @@ export default class NewsController{
 
     public createNews =async (req:Request, res:Response) => {
 
-        const {id} = req.params;
-        const news:NewsModel = {id:req.params, ...req.body}
+        const news:NewsModel = {...req.body}
+        console.log(news);
         const result = await this.service.createNews(news);
         res.status(result.state).json(result);
         
@@ -30,8 +30,9 @@ export default class NewsController{
     public deletedNews =async (req:Request, res:Response) => {
 
         const {id} = req.params;
+        const {deletedby,deleted} = req.body;
 
-        const result = await this.service.deleteNews(parseInt(id));
+        const result = await this.service.deleteNews(parseInt(id), deletedby, deleted);
         res.status(result.state).json(result);
         
     }

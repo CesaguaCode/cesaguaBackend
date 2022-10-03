@@ -2,12 +2,11 @@ import BaseService from "../utils/baseService";
 import NewsModel from './../models/news.model';
 
 const PROCEDURES = {
-    GET_ALL: `sp_news_getAll()`,
-    GET_BY_ID: `sp_news_getById(?)`,
-    CREATE: `sp_news_create(?,?<?,?,?,?)`,
-    DELETE:`sp_news_delete(?)`,
-    UPDATE: `sp_news_update(?,?,?,?,?,?,?,?)`,
-
+    GET_ALL: "sp_news_getAll()",
+    GET_BY_ID: "sp_news_getById(?)",
+    CREATE: "sp_news_create(?,?,?,?)",
+    DELETE:"sp_news_delete(?,?,?)",
+    UPDATE: "sp_news_update(?,?,?,?,?)"
 }
 
 export default class NewsServices extends BaseService{
@@ -32,8 +31,8 @@ export default class NewsServices extends BaseService{
         return result;
       }
     
-      public async deleteNews(id: number) {
-        const result = await this.db.executeProcedure(PROCEDURES.DELETE, [id]);
+      public async deleteNews(id: number, deletedby: number, deleted:number) {
+        const result = await this.db.executeProcedure(PROCEDURES.DELETE, [id,deletedby,deleted]);
         return result;
       }
     

@@ -13,7 +13,7 @@ export default class OrganizationPerson {
     public create =async (req:Request, res:Response) => {
 
         const {id} = req.params;
-        const person:OrganizationPersonModel = {id:req.params, ...req.body}
+        const person:OrganizationPersonModel = {...req.body}
         const result = await this.service.createOrganizationPerson(person);
         res.status(result.state).json(result);
         
@@ -30,8 +30,9 @@ export default class OrganizationPerson {
     public deleted =async (req:Request, res:Response) => {
 
         const {id} = req.params;
+        const {deletedby} = req.body;
 
-        const result = await this.service.deleteOrganizationPerson(parseInt(id));
+        const result = await this.service.deleteOrganizationPerson(parseInt(id), deletedby);
         res.status(result.state).json(result);
         
     }
