@@ -1,6 +1,6 @@
 import UserController from "../controllers/user.controller";
 import { Router } from 'express';
-import Validations from '../validations/format.validations';
+import Validations from '../validations/users.validations';
 
 export default class UserRoutes{
 

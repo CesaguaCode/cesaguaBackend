@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import Validation from "../utils/validators";
 const getSize = require("image-size-from-base64")
 
-export default class newsValidations {
+export default class NewsValidations {
 
     public validId(req: Request, res: Response, next: NextFunction) {
         const { id } = req.params;
@@ -12,18 +12,36 @@ export default class newsValidations {
         next();
     }
 
-    public validForm(req: Request, res: Response, next: NextFunction){
-        const {id,title,description,image} =  req.body;
+    public static async isValidimage(image: string) {
 
-        if(Validation.isEmpty(title)){
+        const val = [
+            Validation.isValidImage(image),
+            await Validation.isValidImageSize(image)
+        ];
+
+        return Validation.isValid(val);
+    }
+
+    public async validForm(req: Request, res: Response, next: NextFunction) {
+        const { id, title, description, image } = req.body;
+        
+        console.log( !await NewsValidations.isValidimage(image));
+
+        if( !await NewsValidations.isValidimage(image)){
+            return res.status(406).json({ status: 406, message: "Error, size or format incorrect." });
+        }
+
+        if (Validation.isEmpty(title)) {
             return res.status(406).json({ status: 406, message: "Error, title value is empty." });
         }
 
-        if(Validation.isEmpty(description)){
+        if (Validation.isEmpty(description)) {
             return res.status(406).json({ status: 406, message: "Error, description value is empty." });
         }
         next();
     }
+
+
 
 
 }

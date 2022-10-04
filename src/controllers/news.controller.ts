@@ -13,7 +13,6 @@ export default class NewsController{
     public createNews =async (req:Request, res:Response) => {
 
         const news:NewsModel = {...req.body}
-        console.log(news);
         const result = await this.service.createNews(news);
         res.status(result.state).json(result);
         

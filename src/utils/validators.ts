@@ -6,7 +6,7 @@ const TEXT_REGEX: RegExp = /^[a-zñáéíóú A-ZÑ]+$/;
 const EMAIL_REGEX: RegExp =
   /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,24}$/;
-const MIMETYPES = ["data:image/jpeg", "data:image/png"];
+const MIMETYPES = ["data:image/jpeg", "data:image/png", "data:image/jpg"];
 const IMAGE_SIZE = 500;
 
 export default class Validation {
