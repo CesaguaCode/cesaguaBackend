@@ -1,7 +1,7 @@
 @hostname = localhost 
 @port = 3200 
 @host = {{hostname}}:{{port}} 
-@entity = pin 
+@entity = service 
 @contentType = application/json
 
 ### 
@@ -13,7 +13,7 @@ GET http://{{host}}/{{entity}}/1 HTTP/1.1
 ### 
 POST http://{{host}}/{{entity}} HTTP/1.1 
 content-type: {{contentType}}
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7InJvbCI6MH0sImlhdCI6MTY2NDgyMzkwMywiZXhwIjoxNjY0ODU5OTAzfQ.XBmvVjmIwnJuLexmMyK8q1VFf0JNpE4g1juIKtBXqnE
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7InVzZXJJZCI6MSwicm9sIjozfSwiaWF0IjoxNjY0ODM0NTkyLCJleHAiOjE2NjQ4NzA1OTJ9.sGvuXZrJcbQtfxKZJ3h7FJqIIHPD2-03-DzHxMzl10U
 
 {
     "title": "Some service",
@@ -28,7 +28,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7InJvbCI6M
 ### 
 PUT http://{{host}}/{{entity}}/5 HTTP/1.1 
 content-type: {{contentType}}
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7InJvbCI6MH0sImlhdCI6MTY2NDgyMzkwMywiZXhwIjoxNjY0ODU5OTAzfQ.XBmvVjmIwnJuLexmMyK8q1VFf0JNpE4g1juIKtBXqnE
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7InVzZXJJZCI6MSwicm9sIjozfSwiaWF0IjoxNjY0ODM0NTkyLCJleHAiOjE2NjQ4NzA1OTJ9.sGvuXZrJcbQtfxKZJ3h7FJqIIHPD2-03-DzHxMzl10U
 
 {
     "title": "Some updated service",
@@ -44,7 +44,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7InJvbCI6M
 ### 
 DELETE http://{{host}}/{{entity}}/1 HTTP/1.1
 content-type: {{contentType}}
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7InJvbCI6MH0sImlhdCI6MTY2NDgyMzkwMywiZXhwIjoxNjY0ODU5OTAzfQ.XBmvVjmIwnJuLexmMyK8q1VFf0JNpE4g1juIKtBXqnE
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7InVzZXJJZCI6MSwicm9sIjozfSwiaWF0IjoxNjY0ODM0NTkyLCJleHAiOjE2NjQ4NzA1OTJ9.sGvuXZrJcbQtfxKZJ3h7FJqIIHPD2-03-DzHxMzl10U
 
 {
     "userId": "1"

@@ -17,7 +17,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7InVzZXJJZ
 
 {
     "title": "Some milestone",
-    "description":"Some milestone°", 
+    "description":"Some milestone", 
     "image":" ", 
     "userId": "1"
 }

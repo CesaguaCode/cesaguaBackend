@@ -4,22 +4,22 @@ import Validation from "../utils/validators";
 
 export default class ServiceValidations extends BaseValidations {
   
-
   /**
    * Validate on POST
    */
-   public validatePost(req: Request, res: Response, next: NextFunction) {
+   public async validatePost(req: Request, res: Response, next: NextFunction) {
 
-    const { title, description, image } = req.body;
+    const { title, description, details, image, contactId } = req.body;
 
     const params:any = {
       title: !ServiceValidations.isValidTitle(title),
       description: !ServiceValidations.isValidDescription(description),
-      details: !ServiceValidations.isValidImage(image),
-      image: !ServiceValidations.isValidImage(image),
+      details: !ServiceValidations.isValidDetails(details),
+      image: !await ServiceValidations.isValidImage(image),
       thumbnail: !ServiceValidations.isValidImage(image),
-      contactId: !ServiceValidations.isValidImage(image),
+      contactId: !ServiceValidations.isValidId(contactId),
     }
+
 
     const errors = Object.keys(params).filter(key => params[key]);
 
@@ -33,19 +33,19 @@ export default class ServiceValidations extends BaseValidations {
   /**
    * Validate on PUT
    */
-  public validatePut(req: Request, res: Response, next: NextFunction) {
+  public async validatePut(req: Request, res: Response, next: NextFunction) {
     
     const { id } = req.params;
-    const { title, description, image, thumbnail, contactId } = req.body;
+    const { title, description, details, image, thumbnail, contactId } = req.body;
 
     const params:any = {
       id: !ServiceValidations.isValidId(id),
       title: !ServiceValidations.isValidTitle(title),
       description: !ServiceValidations.isValidDescription(description),
-      details: !ServiceValidations.isValidDetails(image),
-      image: !ServiceValidations.isValidImage(image),
+      details: !ServiceValidations.isValidDetails(details),
+      image: !await ServiceValidations.isValidImage(image),
       thumbnail: !ServiceValidations.isValidImage(thumbnail),
-      contactId: !ServiceValidations.isValidContact(contactId),
+      contactId: !ServiceValidations.isValidId(contactId),
     }
 
     const errors = Object.keys(params).filter(key => params[key]);
@@ -86,28 +86,13 @@ export default class ServiceValidations extends BaseValidations {
   }
 
 
-  private static isValidImage(text: string) {
+  private static async isValidImage(text: string) {
     const conditions = [
-      Validation.isText(text),
+      Validation.isValidImage(text),
+      await Validation.isValidImageSize(text),
     ];
 
     return Validation.isValid(conditions);
   }
-
-  private static isValidContact(contact: string) {
-    const conditions = [
-      Validation.isNumber(contact),
-      Validation.isMinSize(contact, 1),
-      Validation.isMaxSize(contact, Number.MAX_SAFE_INTEGER),
-    ];
-
-    return Validation.isValid(conditions);
-  }
-
-
-
-
-
-
 
 }

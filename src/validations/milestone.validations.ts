@@ -7,14 +7,14 @@ export default class MilestoneValidations extends BaseValidations {
   /**
    * Validate on POST
    */
-   public validatePost(req: Request, res: Response, next: NextFunction) {
+   public async validatePost(req: Request, res: Response, next: NextFunction) {
 
     const { title, description, image } = req.body;
 
     const params:any = {
       title: !MilestoneValidations.isValidTitle(title),
       description: !MilestoneValidations.isValidDescription(description),
-      image: !MilestoneValidations.isValidImage(image),
+      image: !await MilestoneValidations.isValidImage(image),
     }
 
     const errors = Object.keys(params).filter(key => params[key]);
@@ -29,7 +29,7 @@ export default class MilestoneValidations extends BaseValidations {
   /**
    * Validate on PUT
    */
-  public validatePut(req: Request, res: Response, next: NextFunction) {
+  public async validatePut(req: Request, res: Response, next: NextFunction) {
     
     const { id } = req.params;
     const { title, description, image } = req.body;
@@ -38,7 +38,7 @@ export default class MilestoneValidations extends BaseValidations {
       id: !MilestoneValidations.isValidId(id),
       title: !MilestoneValidations.isValidTitle(title),
       description: !MilestoneValidations.isValidDescription(description),
-      image: !MilestoneValidations.isValidImage(image),
+      image: !await MilestoneValidations.isValidImage(image),
     }
 
     const errors = Object.keys(params).filter(key => params[key]);
@@ -70,9 +70,10 @@ export default class MilestoneValidations extends BaseValidations {
     return Validation.isValid(conditions);
   }
 
-  private static isValidImage(text: string) {
+  private static async isValidImage(text: string) {
     const conditions = [
-      Validation.isText(text),
+      Validation.isValidImage(text),
+      await Validation.isValidImageSize(text),
     ];
 
     return Validation.isValid(conditions);
