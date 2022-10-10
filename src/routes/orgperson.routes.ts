@@ -1,27 +1,29 @@
+import { Router } from "express";
+import OrganizationPerson from "../controllers/organizationPerson.controllers";
+import OrganizationValidations from "../validations/organization_person.validations";
 
-import { Router } from 'express';
-import OrganizationPerson from '../controllers/organizationPerson.controllers';
+export default class OrganizationPersonRoutes {
+  private controller: OrganizationPerson;
+  private router: Router;
+  private validations: OrganizationValidations;
 
-export default class OrganizationPersonRoutes{
+  constructor() {
+    this.controller = new OrganizationPerson();
+    this.validations = new OrganizationValidations();
+    this.router = Router();
 
-    private controller: OrganizationPerson;
-    private router : Router;
+    this.router.post("/", this.validations.validForm, this.controller.create);
+    this.router.put("/", this.validations.validForm, this.controller.update);
+    this.router.delete(
+      "/:id",
+      this.validations.validId,
+      this.controller.deleted
+    );
+    this.router.get("/", this.controller.getAll);
+    this.router.get("/:id", this.validations.validId, this.controller.getByid);
+  }
 
-    constructor(){
-        this.controller = new OrganizationPerson();
-        this.router = Router();
-
-        this.router.post('/', this.controller.create);
-        this.router.put('/', this.controller.update);
-        this.router.delete('/:id', this.controller.deleted);
-        this.router.get('/', this.controller.getAll);
-        this.router.get('/:id', this.controller.getByid);
-    }
-
-    getRouter(){
-        return this.router;
-    }
-
-
-
+  getRouter() {
+    return this.router;
+  }
 }
