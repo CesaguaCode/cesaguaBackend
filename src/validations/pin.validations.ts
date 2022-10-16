@@ -7,7 +7,12 @@ export default class PinValidations extends BaseValidations {
   /**
    * Validate on POST
    */
-  public validatePost(req: Request, res: Response, next: NextFunction) {
+  public validatePost(req: Request, res: Response, next: NextFunction) { 
+    const missing = ["name", "province", "canton", "district", "position"].filter(key => !req.body[key] );
+
+    if(missing.length > 0){
+      return res.status(406).json({ status:406, message: `Error, missing ${missing.join(",")}.` });
+    }
 
     const { name, province, canton, district, position } = req.body;
 
@@ -33,8 +38,16 @@ export default class PinValidations extends BaseValidations {
    */
   public validatePut(req: Request, res: Response, next: NextFunction) {
     
+    const missing = ["name", "province", "canton", "district", "position"].filter(key => !req.body[key] );
+
+    if(missing.length > 0){
+      return res.status(406).json({ status:406, message: `Error, missing ${missing.join(",")}.` });
+    }
+
     const { id } = req.params;
     const { name, province, canton, district, position } = req.body;
+
+   
 
     const params:any = {
       id: !PinValidations.isValidId(id),
@@ -56,6 +69,7 @@ export default class PinValidations extends BaseValidations {
 
   private static isValidName(text: string) {
     const conditions = [
+      !!text,
       Validation.isText(text),
       Validation.isMinSize(text, 1),
       Validation.isMaxSize(text, 45),
@@ -66,6 +80,7 @@ export default class PinValidations extends BaseValidations {
 
   private static isValidProvince(text: string) {
     const conditions = [
+      !!text,
       Validation.isText(text),
       Validation.isMinSize(text, 1),
       Validation.isMaxSize(text, 45),
@@ -76,6 +91,7 @@ export default class PinValidations extends BaseValidations {
 
   private static isValidCanton(text: string) {
     const conditions = [
+      !!text,
       Validation.isText(text),
       Validation.isMinSize(text, 1),
       Validation.isMaxSize(text, 45),
@@ -86,6 +102,7 @@ export default class PinValidations extends BaseValidations {
 
   private static isValidDistrict(text: string) {
     const conditions = [
+      !!text,
       Validation.isText(text),
       Validation.isMinSize(text, 1),
       Validation.isMaxSize(text, 45),
@@ -96,6 +113,7 @@ export default class PinValidations extends BaseValidations {
 
   private static isValidPosition(text: string) {
     const conditions = [
+      !!text,
       Validation.isArray(text),
       Validation.isPositional(text)
     ];

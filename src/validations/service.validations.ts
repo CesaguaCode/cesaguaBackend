@@ -9,6 +9,12 @@ export default class ServiceValidations extends BaseValidations {
    */
    public async validatePost(req: Request, res: Response, next: NextFunction) {
 
+    const missing = ["title", "description", "details", "image", "contactId"].filter(key => !req.body[key] );
+
+    if(missing.length > 0){
+      return res.status(406).json({ status:406, message: `Error, missing ${missing.join(",")}.` });
+    }
+
     const { title, description, details, image, contactId } = req.body;
 
     const params:any = {
@@ -35,6 +41,12 @@ export default class ServiceValidations extends BaseValidations {
    */
   public async validatePut(req: Request, res: Response, next: NextFunction) {
     
+    const missing = ["title", "description", "details", "image", "contactId"].filter(key => !req.body[key] );
+
+    if(missing.length > 0){
+      return res.status(406).json({ status:406, message: `Error, missing ${missing.join(",")}.` });
+    }
+
     const { id } = req.params;
     const { title, description, details, image, thumbnail, contactId } = req.body;
 
@@ -59,6 +71,7 @@ export default class ServiceValidations extends BaseValidations {
 
   private static isValidTitle(text: string) {
     const conditions = [
+      !!text,
       Validation.isText(text),
       Validation.isMinSize(text, 1),
       Validation.isMaxSize(text, 45),
@@ -69,6 +82,7 @@ export default class ServiceValidations extends BaseValidations {
 
   private static isValidDescription(text: string) {
     const conditions = [
+      !!text,
       Validation.isText(text),
       Validation.isMinSize(text, 1),
       Validation.isMaxSize(text, 1000),
@@ -79,6 +93,7 @@ export default class ServiceValidations extends BaseValidations {
 
   private static isValidDetails(text: string) {
     const conditions = [
+      !!text,
       Validation.isArray(text),
     ];
 
@@ -88,6 +103,7 @@ export default class ServiceValidations extends BaseValidations {
 
   private static async isValidImage(text: string) {
     const conditions = [
+      !!text,
       Validation.isValidImage(text),
       await Validation.isValidImageSize(text),
     ];

@@ -18,7 +18,7 @@ export default class TokenAuth {
           return res({ status: 400, message: "Fail token generation" });
         }
 
-        return res({ status: 200, item: token });
+        return res({ status: 200, token: token });
       });
     });
   };
@@ -30,22 +30,20 @@ export default class TokenAuth {
   ) => {
     const bearerHeader = req.headers["authorization"];
 
+    
     if (!bearerHeader) {
       return res.status(403).json({ status: 403, message: "Token not found" });
     }
-
+ 
     const bearerToken = bearerHeader.split(" ")[1];
-
     const checkToken: any = await this.validateToken(bearerToken);
-
     
-
     if (checkToken.status !== 200) {
-      return res.status(checkToken.status);
+      return  res.status(checkToken.status).json(checkToken);
     }
-
+    
     req.token = checkToken.item;
-
+   
     next();
   };
 

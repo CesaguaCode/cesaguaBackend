@@ -8,7 +8,7 @@
 GET http://{{host}}/{{entity}} HTTP/1.1
 
 ### 
-GET http://{{host}}/{{entity}}/1 HTTP/1.1
+GET http://{{host}}/{{entity}}/21 HTTP/1.1
 
 ### 
 POST http://{{host}}/{{entity}} HTTP/1.1 

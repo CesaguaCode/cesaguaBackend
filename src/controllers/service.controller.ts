@@ -2,13 +2,17 @@ import { Request, Response } from "express";
 import ServiceModel from "../models/service.model";
 import ServiceService from "../services/service.services";
 
-export default class ServiceController {
+import { STATUS_MSG } from './../utils/baseController';
+import BaseController from "../utils/baseController";
+
+export default class ServiceController extends BaseController {
   /**
    * Testing Service
    */
   private service: ServiceService;
 
   constructor() {
+    super();
     this.service = new ServiceService();
   }
 
@@ -17,7 +21,14 @@ export default class ServiceController {
    */
   public listServices = async (req: Request, res: Response) => {
     const result = await this.service.getServices();
-    res.status(result.state).json(result);
+
+
+
+     if (!this.validState(result)) {
+      return res.status(result.state).json(result);
+    }
+
+    res.status(result.state).json(this.returnAllData(result));
   };
 
   /**
@@ -26,7 +37,15 @@ export default class ServiceController {
   public listService = async (req: Request, res: Response) => {
     const { id } = req.params;
     const result = await this.service.getService(parseInt(id));
-    res.status(result.state).json(result);
+    if (!this.validState(result)) {
+      return res.status(result.state).json(result);
+    }
+
+    if (!this.existsOne(result)) {
+      return res.status(404).json(STATUS_MSG.NOT_FOUND);
+    }
+
+    res.status(200).json(this.returnOneData(result));
   };
 
   /**
@@ -36,7 +55,15 @@ export default class ServiceController {
     const service:ServiceModel = {...req.body};
     const result = await this.service.createService(service);
 
-    res.status(result.state).json(result);
+     if (!this.validState(result)) {
+      return res.status(result.state).json(result);
+    }
+
+    if (!this.affectedRows(result)) {
+      return res.status(400).json(STATUS_MSG.NOT_CREATED);
+    }
+
+    res.status(201).json(STATUS_MSG.CREATED);
   };
 
   /**
@@ -44,13 +71,19 @@ export default class ServiceController {
    */
   public deleteService = async (req: Request, res: Response) => {
     const { id } = req.params;
-
-    // TODO: OBTENER ID DEL TOKEN NO COMO PARTE DEL BODY
-    const { userId } = req.body;
+    const { userId } = req.token.id;
 
     const result = await this.service.deleteService(parseInt(id), userId);
 
-    res.status(result.state).json(result);
+    if (!this.validState(result)) {
+      return res.status(result.state).json(result);
+    }
+
+    if (!this.affectedRows(result)) {
+      return res.status(400).json(STATUS_MSG.NOT_DELEATED);
+    }
+
+    res.status(200).json(STATUS_MSG.DELEATED);
   };
 
   /**
@@ -58,10 +91,18 @@ export default class ServiceController {
    */
   public updateService = async (req: Request, res: Response) => {
     const { id } = req.params;
-    
     const service:ServiceModel = {id:req.params.id, ...req.body};
+
     const result = await this.service.updateService(service);
 
-    res.status(result.state).json(result);
+     if (!this.validState(result)) {
+      return res.status(result.state).json(result);
+    }
+
+    if (!this.affectedRows(result)) {
+      return res.status(400).json(STATUS_MSG.NOT_UPDATED);
+    }
+
+    res.status(200).json(STATUS_MSG.UPDATED);
   };
 }

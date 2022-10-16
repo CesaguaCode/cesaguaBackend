@@ -7,9 +7,9 @@ import BaseService from "../utils/baseService";
 const PROCEDURES = {
   GET_ALL: "sp_milestones_getAll()",
   GET_BY_ID: "sp_milestones_getByID(?)",
-  CREATE: "sp_milestones_create(?, ?, ?, ?)",
+  CREATE: "sp_milestones_create(?, ?, ?, ?, ?)",
   DELETE: "sp_milestones_delete(?, ?)",
-  UPDATE: "sp_milestones_update(?, ?, ?, ?)",
+  UPDATE: "sp_milestones_update(?, ?, ?, ?, ?)",
 };
 
 export default class MilestoneService extends BaseService {
@@ -58,8 +58,6 @@ export default class MilestoneService extends BaseService {
 
   /**
    * This method delete a milestone from the database by id
-   * @param id
-   * @param name
    * @returns State and Result of query
    */
   public async updateMilestone(milestone:MilestoneModel) {

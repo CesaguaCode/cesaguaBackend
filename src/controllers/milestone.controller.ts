@@ -2,13 +2,17 @@ import { Request, Response } from "express";
 import MilestoneModel from "../models/milestone.model";
 import MilestoneService from "../services/milestone.services";
 
-export default class MilestoneController {
+import { STATUS_MSG } from "./../utils/baseController";
+import BaseController from "../utils/baseController";
+
+export default class MilestoneController extends BaseController {
   /**
    * Testing Service
    */
   private service: MilestoneService;
 
   constructor() {
+    super();
     this.service = new MilestoneService();
   }
 
@@ -17,7 +21,12 @@ export default class MilestoneController {
    */
   public listMilestones = async (req: Request, res: Response) => {
     const result = await this.service.getMilestones();
-    res.status(result.state).json(result);
+
+    if (!this.validState(result)) {
+      return res.status(result.state).json(result);
+    }
+
+    res.status(result.state).json(this.returnAllData(result));
   };
 
   /**
@@ -26,17 +35,42 @@ export default class MilestoneController {
   public listMilestone = async (req: Request, res: Response) => {
     const { id } = req.params;
     const result = await this.service.getMilestone(parseInt(id));
-    res.status(result.state).json(result);
+
+    if (!this.validState(result)) {
+      return res.status(result.state).json(result);
+    }
+
+    if (!this.existsOne(result)) {
+      return res.status(404).json(STATUS_MSG.NOT_FOUND);
+    }
+
+    res.status(200).json(this.returnOneData(result));
   };
 
   /**
    * This methood allows create a milestone
    */
   public createMilestone = async (req: Request, res: Response) => {
-    const milestone:MilestoneModel = {...req.body};
-    const result = await this.service.createMilestone(milestone);
+    const userId = req.token.id;
 
-    res.status(result.state).json(result);
+    const milestone: MilestoneModel = new MilestoneModel({
+      userId: userId,
+      ...req.body,
+    });
+
+    const result = await this.service.createMilestone(
+      (milestone as any).toJSON()
+    );
+
+    if (!this.validState(result)) {
+      return res.status(result.state).json(result);
+    }
+
+    if (!this.affectedRows(result)) {
+      return res.status(400).json(STATUS_MSG.NOT_CREATED);
+    }
+
+    res.status(201).json(STATUS_MSG.CREATED);
   };
 
   /**
@@ -44,13 +78,19 @@ export default class MilestoneController {
    */
   public deleteMilestone = async (req: Request, res: Response) => {
     const { id } = req.params;
-
-    // TODO: OBTENER ID DEL TOKEN NO COMO PARTE DEL BODY
-    const { userId } = req.token;
+    const userId = req.token.id;
 
     const result = await this.service.deleteMilestone(parseInt(id), userId);
-    
-    res.status(result.state).json(result);
+
+    if (!this.validState(result)) {
+      return res.status(result.state).json(result);
+    }
+
+    if (!this.affectedRows(result)) {
+      return res.status(400).json(STATUS_MSG.NOT_DELEATED);
+    }
+
+    res.status(200).json(STATUS_MSG.DELEATED);
   };
 
   /**
@@ -58,10 +98,22 @@ export default class MilestoneController {
    */
   public updateMilestone = async (req: Request, res: Response) => {
     const { id } = req.params;
+
+    const milestone: MilestoneModel = new MilestoneModel({
+      id: id,
+      ...req.body,
+    });
     
-    const milestone:MilestoneModel = {id:req.params.id, ...req.body};
     const result = await this.service.updateMilestone(milestone);
 
-    res.status(result.state).json(result);
+    if (!this.validState(result)) {
+      return res.status(result.state).json(result);
+    }
+
+    if (!this.affectedRows(result)) {
+      return res.status(400).json(STATUS_MSG.NOT_UPDATED);
+    }
+
+    res.status(200).json(STATUS_MSG.UPDATED);
   };
 }

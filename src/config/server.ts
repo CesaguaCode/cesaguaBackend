@@ -10,6 +10,7 @@ import OrganizationPersonRoutes from "../routes/orgperson.routes";
 import PinRouter from "../routes/pins.routes";
 import ServiceRouter from "../routes/service.routes";
 import MilestoneRouter from "../routes/milestone.routes";
+import LoginRouter from "../routes/login.routes";
 
 export default class Server {
   private app: Application;
@@ -22,10 +23,12 @@ export default class Server {
   private organizationPerson: OrganizationPersonRoutes;
   private serviceRouter: ServiceRouter;
   private milestoneRouter: MilestoneRouter;
+  private loginRouter: LoginRouter;
 
   constructor() {
     this.port = parseInt(process.env.PORT || "");
     this.app = express();
+    this.middlewares();
 
     this.testRouter = new TestRouter();
     this.pinRouter = new PinRouter();
@@ -34,8 +37,8 @@ export default class Server {
     this.organizationPerson = new OrganizationPersonRoutes();
     this.serviceRouter = new ServiceRouter();
     this.milestoneRouter = new MilestoneRouter();
+    this.loginRouter = new LoginRouter();
 
-    this.middlewares();
     this.routes();
   }
 
@@ -59,6 +62,7 @@ export default class Server {
     this.app.use("/pin", this.pinRouter.getRouter());
     this.app.use("/service", this.serviceRouter.getRouter());
     this.app.use("/milestone", this.milestoneRouter.getRouter());
+    this.app.use("/login", this.loginRouter.getRouter());
   }
 
   /**

@@ -6,7 +6,7 @@ const TEXT_REGEX: RegExp = /^[a-zñáéíóú A-ZÑ]+$/;
 const EMAIL_REGEX: RegExp =
   /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,24}$/;
-const MIMETYPES = ["data:image/jpeg", "data:image/png", "data:image/jpg"];
+const MIMETYPES = ["data:image/jpeg", "data:image/png", "data:image/jpg", "data:image/webp"];
 const IMAGE_SIZE = 500;
 
 export default class Validation {
@@ -86,7 +86,11 @@ export default class Validation {
    *  Validates a boolean array to verify that all fields are true
    */
   public static async isValidImageSize(image: string) {
-    return await getSize(image) < IMAGE_SIZE;
+    try {
+      return await getSize(image) < IMAGE_SIZE;
+    } catch (error) {
+      return false;
+    }
   }
 
   /**
@@ -95,6 +99,8 @@ export default class Validation {
   public static isValid(conditions: Array<boolean>) {
     return !conditions.includes(false);
   }
+
+
 
   public static isEmpty (string: string){
     return string.length === 0;
