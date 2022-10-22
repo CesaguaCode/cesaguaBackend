@@ -16,6 +16,7 @@ export default class MilestoneController extends BaseController {
   constructor() {
     super();
 
+
     this.auth = new PassAuth();
     this.service = new LoginService();
   }
@@ -92,4 +93,29 @@ export default class MilestoneController extends BaseController {
 
     res.status(result.state).json(token);
   };
+
+  /**
+   *
+   */
+   public resetPassword = async (req: Request, res: Response) => {
+    const { id, password } = req.body;
+
+    const pwdData = this.auth.encryptPassword(password);
+
+ 
+    const result = await this.service.resetPassword(id, pwdData.password, pwdData.salt, pwdData.pepper);
+
+    console.log(result);
+
+    if (!this.validState(result)) {
+      return res.status(result.state).json(result);
+    }
+
+    if (!this.affectedRows(result)) {
+      return res.status(404).json(STATUS_MSG.NOT_VALID);
+    }
+
+    res.status(result.state).json({status: 200, data:"success"});
+  };
+
 }

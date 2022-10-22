@@ -9,8 +9,9 @@ try {
     console.log("Error launching server.",error);   
 }
 
-TokenAuth.createToken({rol:3, id:1}).then(console.log)
+//TokenAuth.createToken({rol:3, id:1}).then(console.log)
 
+TokenAuth.createToken({ id:1 }).then(console.log)
 
 new PassAuth().encryptPassword("1231321");
 
