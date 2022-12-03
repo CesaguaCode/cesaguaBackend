@@ -6,7 +6,11 @@ export default class BaseValidations {
    * Validate on GET or DELETE
    */
    public validateId(req: Request, res: Response, next: NextFunction) {
-    const { id } = req.params;
+    let { id } = req.params;
+    
+    if( !id ){
+      id = req.body.id
+    }
 
     if (!BaseValidations.isValidId(id)) {
       return res

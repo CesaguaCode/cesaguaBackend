@@ -54,7 +54,7 @@ export default class LoginService extends BaseService {
    *
    */
   public async resetPassword(id: number, password: string, salt:string, pepper: number) {
-    const result: any = await this.db.executeProcedure(PROCEDURES.RESET_PASSWORD, [ id,salt, pepper, password ]);
+    const result: any = await this.db.executeProcedure(PROCEDURES.RESET_PASSWORD, [ id, salt, pepper, password ]);
     return result;
   }
 }

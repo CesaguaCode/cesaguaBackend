@@ -52,7 +52,16 @@ export default class ServiceController extends BaseController {
    * This methood allows create a service
    */
   public createService = async (req: Request, res: Response) => {
-    const service:ServiceModel = {...req.body};
+
+    const userId = req.token.id;
+
+    const service: ServiceModel = {
+      ...req.body,
+      userId: userId
+    };
+
+    service.details = JSON.stringify(req.body.details)
+    
     const result = await this.service.createService(service);
 
      if (!this.validState(result)) {
@@ -91,7 +100,9 @@ export default class ServiceController extends BaseController {
    */
   public updateService = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const service:ServiceModel = {id:req.params.id, ...req.body};
+    const service: ServiceModel = {id, ...req.body };
+
+    service.details = JSON.stringify(req.body.details)
 
     const result = await this.service.updateService(service);
 

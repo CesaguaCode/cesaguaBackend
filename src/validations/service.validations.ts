@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, json } from "express";
 import BaseValidations from "../utils/baseValidations";
 import Validation from "../utils/validators";
 
@@ -8,14 +8,18 @@ export default class ServiceValidations extends BaseValidations {
    * Validate on POST
    */
    public async validatePost(req: Request, res: Response, next: NextFunction) {
-
+    
     const missing = ["title", "description", "details", "image", "contactId"].filter(key => !req.body[key] );
 
     if(missing.length > 0){
       return res.status(406).json({ status:406, message: `Error, missing ${missing.join(",")}.` });
     }
 
-    const { title, description, details, image, contactId } = req.body;
+    const { title, description, image, contactId } = req.body;
+
+    const details = JSON.stringify(req.body.details)
+  
+    
 
     const params:any = {
       title: !ServiceValidations.isValidTitle(title),
@@ -25,7 +29,6 @@ export default class ServiceValidations extends BaseValidations {
       thumbnail: !ServiceValidations.isValidImage(image),
       contactId: !ServiceValidations.isValidId(contactId),
     }
-
 
     const errors = Object.keys(params).filter(key => params[key]);
 
@@ -48,7 +51,9 @@ export default class ServiceValidations extends BaseValidations {
     }
 
     const { id } = req.params;
-    const { title, description, details, image, thumbnail, contactId } = req.body;
+    const { title, description, image, thumbnail, contactId } = req.body;
+
+    const details = JSON.stringify(req.body.details)
 
     const params:any = {
       id: !ServiceValidations.isValidId(id),
@@ -72,7 +77,6 @@ export default class ServiceValidations extends BaseValidations {
   private static isValidTitle(text: string) {
     const conditions = [
       !!text,
-      Validation.isText(text),
       Validation.isMinSize(text, 1),
       Validation.isMaxSize(text, 45),
     ];
@@ -83,7 +87,6 @@ export default class ServiceValidations extends BaseValidations {
   private static isValidDescription(text: string) {
     const conditions = [
       !!text,
-      Validation.isText(text),
       Validation.isMinSize(text, 1),
       Validation.isMaxSize(text, 1000),
     ];

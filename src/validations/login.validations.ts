@@ -9,7 +9,7 @@ export default class LoginValidations extends BaseValidations {
    * Validate on POST
    */
    public async validateEmail(req: Request, res: Response, next: NextFunction) {
-    const missing = ["mail"].filter(key => !req.body[key] );
+    const missing = ["email"].filter(key => !req.body[key] );
 
     console.log(req.body);
     
@@ -18,15 +18,15 @@ export default class LoginValidations extends BaseValidations {
       return res.status(406).json({ status:406, message: `Error, missing ${missing.join(",")}.` });
     }
 
-    const { mail } = req.body;
+    const { email } = req.body;
 
     const params:any = {
-      mail: !LoginValidations.isValidmail(mail)
+      mail: !LoginValidations.isValidmail(email)
     }
 
     const errors = Object.keys(params).filter(key => params[key]);
   
-  406
+
     if(errors.length > 0){
       return res.status(406).json({ status:406, message: `Error, invalid ${errors.join(",")}.` });
     }

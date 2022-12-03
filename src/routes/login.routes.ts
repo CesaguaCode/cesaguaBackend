@@ -18,6 +18,7 @@ export default class LoginRouter{
         this.router.post('/exists', this.validations.validateEmail, this.controller.existsEmail);
         this.router.post('/validToken', TokenAuth.checkToken, this.controller.validToken);
         this.router.post('/reset',this.controller.resetPassword);
+        this.router.post('/resetEmail', this.validations.validateId, this.controller.sendResetEmail);
 
     }
 

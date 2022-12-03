@@ -5,6 +5,7 @@ import LoginService from "../services/login.services";
 import BaseController from "../utils/baseController";
 import PassAuth from "../utils/passAuth";
 import TokenAuth from "../utils/tokenAuth";
+import Mailer from "../mailer/mailer";
 
 export default class MilestoneController extends BaseController {
   /**
@@ -25,9 +26,9 @@ export default class MilestoneController extends BaseController {
    *
    */
   public existsEmail = async (req: Request, res: Response) => {
-    const { mail } = req.body;
+    const { email } = req.body;
 
-    const result = await this.service.getExistEmail(mail);
+    const result = await this.service.getExistEmail(email);
 
     console.log(result);
 
@@ -53,10 +54,10 @@ export default class MilestoneController extends BaseController {
    *
    */
   public validLogin = async (req: Request, res: Response) => {
-    const { mail, password } = req.body;
+    const { email, password } = req.body;
 
-    let result = await this.service.getExistEmail(mail);
-
+    let result = await this.service.getExistEmail(email);
+ 
     if (result.state !== 200) {
       return res.status(404).json(STATUS_MSG.NOT_VALID);
     }
@@ -74,6 +75,8 @@ export default class MilestoneController extends BaseController {
     }
 
     pwdData = this.returnOneData(pwdData).data;
+
+
 
     const isValid = this.auth.comparePassword(password, pwdData);
 
@@ -102,10 +105,7 @@ export default class MilestoneController extends BaseController {
 
     const pwdData = this.auth.encryptPassword(password);
 
- 
     const result = await this.service.resetPassword(id, pwdData.password, pwdData.salt, pwdData.pepper);
-
-    console.log(result);
 
     if (!this.validState(result)) {
       return res.status(result.state).json(result);
@@ -116,6 +116,39 @@ export default class MilestoneController extends BaseController {
     }
 
     res.status(result.state).json({status: 200, data:"success"});
+  };
+
+  
+  /**
+   *
+   */
+  public sendResetEmail = async (req: Request, res: Response) => {
+    const { id } = req.body;
+
+    let result = await this.service.getAuthData(id);
+
+    if (!this.validState(result)) {
+      return res.status(result.state).json(result);
+    }
+
+    if (!this.existsOne(result)) {
+      return res.status(404).json(STATUS_MSG.NOT_FOUND);
+    }
+
+   
+    
+
+    const token:any = await TokenAuth.createToken({id})
+
+
+    // TODO: Replace host
+    const url_token = "http://192.168.100.17:5173/reset/"+(token.token.replaceAll(".", "~"));
+
+    const mail = (this.returnOneData(result).data.mail)
+    // TODO: Replace mail
+    new Mailer().sendRecoveryMail("luis.leiton.cr@gmail.com", url_token);
+
+    res.status(200).json({state: 200, data:"success"});
   };
 
 }
