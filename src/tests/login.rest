@@ -10,7 +10,7 @@ POST http://{{host}}/{{entity}}/exists HTTP/1.1
 content-type: {{contentType}}
 
 {
-    "mail": "Testing.node@outlook.com"
+    "email": "Testing.ode@outlook.com"
 }
 
 ### 
@@ -18,14 +18,14 @@ POST http://{{host}}/{{entity}}/ HTTP/1.1
 content-type: {{contentType}}
 
 {
-    "mail": "Testing.node@outlook.com",
-    "password": "1231321"
+    "email": "Testing.node@outlook.com",
+    "password": "222211"
 }
 
 
 ### 
 POST http://{{host}}/{{entity}}/validToken HTTP/1.1 
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7ImlkIjoxLCJuYW1lIjoiQWRtaW5pc3RyYSBEb3IiLCJyb2wiOjB9LCJpYXQiOjE2NjU4NzExNTIsImV4cCI6MTY2NTkwNzE1Mn0.iUBy3WDpKtvqnaXqdhRHFs86-FEfmYliO7-0gqGrnEA
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7ImlkIjoxfSwiaWF0IjoxNjcwMTc0NzM1LCJleHAiOjE2NzAyMTA3MzV9.AnKB1EgMsn5kIpzoQd3HAfejZCk2PnCMg3u5LJYO5to
 
 ### 
 POST http://{{host}}/{{entity}}/reset HTTP/1.1 
@@ -33,7 +33,7 @@ content-type: {{contentType}}
 
 {
     "id": "1",
-    "password": "1231321"
+    "password": "123123"
 }
 
 ### 

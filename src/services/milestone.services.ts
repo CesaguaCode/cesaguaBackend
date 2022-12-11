@@ -38,7 +38,7 @@ export default class MilestoneService extends BaseService {
 
   /**
    * This method allows the creation of milestones at the database
-   * @param name
+   * @param milestone
    * @returns  State and Result of query
    */
    public async createMilestone(milestone:MilestoneModel) {
@@ -58,6 +58,7 @@ export default class MilestoneService extends BaseService {
 
   /**
    * This method delete a milestone from the database by id
+   * @param milestone
    * @returns State and Result of query
    */
   public async updateMilestone(milestone:MilestoneModel) {

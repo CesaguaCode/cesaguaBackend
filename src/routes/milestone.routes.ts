@@ -19,12 +19,12 @@ export default class MilestoneRouter {
      * Testing Router
      */
     private router:Router;
-    
+    private cache: any;
     constructor(){
         this.controller = new MilestoneController();
         this.validator = new MilestoneValidations();
         this.router = Router();
-
+        
         this.router.get(
             '/', 
             this.controller.listMilestones

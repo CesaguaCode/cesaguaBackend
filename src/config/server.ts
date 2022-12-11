@@ -12,6 +12,8 @@ import ServiceRouter from "../routes/service.routes";
 import MilestoneRouter from "../routes/milestone.routes";
 import LoginRouter from "../routes/login.routes";
 
+import swaggerDocs from "../v1/swagger";
+
 export default class Server {
   private app: Application;
   private port: number;
@@ -69,6 +71,9 @@ export default class Server {
    * This method launches the server
    */
   public launch() {
-    this.app.listen(this.port, () => console.log("Running on port", this.port));
+    this.app.listen(this.port, () => {
+      console.log("🚀Backend running on port", this.port)
+      swaggerDocs(this.app, this.port)
+    });
   }
 }

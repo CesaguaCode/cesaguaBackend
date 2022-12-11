@@ -8,6 +8,7 @@ export default class LoginRouter{
     private controller: LoginController;
     private router : Router;
     private validations: Validations;
+   
 
     constructor(){
         this.controller = new LoginController();
