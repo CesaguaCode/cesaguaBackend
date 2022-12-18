@@ -142,7 +142,7 @@ export default class MilestoneController extends BaseController {
 
 
     // TODO: Replace host
-    const url_token = "http://192.168.100.17:5173/reset/"+(token.token.replaceAll(".", "~"));
+    const url_token = "http://192.168.100.17:5173/reset/" + (token.token.replaceAll(".", "~"));
 
     const mail = (this.returnOneData(result).data.mail)
     // TODO: Replace mail

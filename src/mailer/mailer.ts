@@ -4,6 +4,8 @@ import NewUserMailTemplate from "./templates/newUserMailTemplate";
 import ReceivedMailTemplate from "./templates/receivedMailTemplate";
 import RecoveryMailTemplate from "./templates/recoveryMailTemplate";
 import MailResponse from "./mailResponse"
+import ContactUsMail from "../models/contactUsMail.model";
+import ContactUsMailTemplate from "./templates/contactUsMailTemplate";
 
 /**
  * This class allows the server send specific mails.
@@ -67,4 +69,21 @@ export default class Mailer extends BaseMailer {
 
     return response;
   }
+
+    /**
+   * This method send a message that informs the user of the reception of his mail.
+   * @param receiver Receiver of the email
+   * @returns Mail Response with a boolean indicating if has succeeded
+   */
+    public async sendContactMail(messageData: ContactUsMail): Promise<MailResponse> {
+  
+      const response = await this.sendMail(
+        "Testing.node@outlook.com",
+        "Mensaje de contacto - CESAGUA",
+        `Mensaje de contacto mediante la página web. `,
+        ContactUsMailTemplate(messageData)
+      );
+  
+      return response;
+    }
 }

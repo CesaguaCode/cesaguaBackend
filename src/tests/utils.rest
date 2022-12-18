@@ -1,0 +1,16 @@
+@hostname = localhost 
+@port = 3200 
+@host = {{hostname}}:{{port}} 
+@entity = utils 
+@contentType = application/json
+
+
+### 
+POST http://{{host}}/{{entity}}/mail/contact-us HTTP/1.1 
+content-type: {{contentType}}
+
+{
+    "email": "Testing.ode@outlook.com",
+    "name": "Luis Fernando Leiton Iglesias",
+    "message": "My message"
+}

@@ -13,6 +13,7 @@ import MilestoneRouter from "../routes/milestone.routes";
 import LoginRouter from "../routes/login.routes";
 
 import swaggerDocs from "../v1/swagger";
+import UtilsRouter from "../routes/utils.routes";
 
 export default class Server {
   private app: Application;
@@ -26,6 +27,7 @@ export default class Server {
   private serviceRouter: ServiceRouter;
   private milestoneRouter: MilestoneRouter;
   private loginRouter: LoginRouter;
+  private utilsRouter: UtilsRouter;
 
   constructor() {
     this.port = parseInt(process.env.PORT || "");
@@ -40,6 +42,7 @@ export default class Server {
     this.serviceRouter = new ServiceRouter();
     this.milestoneRouter = new MilestoneRouter();
     this.loginRouter = new LoginRouter();
+    this.utilsRouter = new UtilsRouter();
 
     this.routes();
   }
@@ -65,6 +68,7 @@ export default class Server {
     this.app.use("/service", this.serviceRouter.getRouter());
     this.app.use("/milestone", this.milestoneRouter.getRouter());
     this.app.use("/login", this.loginRouter.getRouter());
+    this.app.use("/utils", this.utilsRouter.getRouter());
   }
 
   /**

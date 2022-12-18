@@ -10,7 +10,8 @@ const options = {
         "src/v1/routes/loginRoutes.ts",
         "src/v1/routes/milestonesRoutes.ts",
         "src/v1/routes/pinsRoutes.ts",
-        "src/v1/routes/servicesRoutes.ts"
+        "src/v1/routes/servicesRoutes.ts",
+        "src/v1/routes/utilsRoutes.ts"
     ]
 }
 
