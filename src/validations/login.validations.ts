@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import BaseValidations from "../utils/baseValidations";
+import BaseValidations from "../shared/baseValidations";
 import Validation from "../utils/validators";
 
 export default class LoginValidations extends BaseValidations {
@@ -10,9 +10,6 @@ export default class LoginValidations extends BaseValidations {
    */
    public async validateEmail(req: Request, res: Response, next: NextFunction) {
     const missing = ["email"].filter(key => !req.body[key] );
-
-    console.log(req.body);
-    
 
     if(missing.length > 0){
       return res.status(406).json({ status:406, message: `Error, missing ${missing.join(",")}.` });

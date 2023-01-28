@@ -1,8 +1,8 @@
-import { STATUS_MSG } from "./../utils/baseController";
+import { STATUS_MSG } from "../shared/baseController";
 import { Request, Response } from "express";
 import LoginService from "../services/login.services";
 
-import BaseController from "../utils/baseController";
+import BaseController from "../shared/baseController";
 import PassAuth from "../utils/passAuth";
 import TokenAuth from "../utils/tokenAuth";
 import Mailer from "../mailer/mailer";

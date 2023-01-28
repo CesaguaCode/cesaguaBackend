@@ -1,4 +1,4 @@
-import BaseService from "../utils/baseService";
+import BaseService from "../shared/baseService";
 import OrganizationPersonModel from './../models/OrgPerson.models';
 
 /**

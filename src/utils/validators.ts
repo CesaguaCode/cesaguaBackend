@@ -71,9 +71,14 @@ export default class Validation {
   public static isArray = (arr: string) => Array.isArray(JSON.parse(arr));
 
   /**
-   *  Validate id an array is positional array
+   *  Validate if an array is positional array
    */
   public static isPositional = (arr: string) => JSON.parse(arr).length === 2;
+
+  /**
+   * 
+   */
+  public static isEmpty = (text:string) => text.length === 0;
 
   /**
    *  Validates a boolean array to verify that all fields are true
@@ -86,6 +91,7 @@ export default class Validation {
    *  Validates a boolean array to verify that all fields are true
    */
   public static async isValidImageSize(image: string) {
+    
     try {
       return await getSize(image) < IMAGE_SIZE;
     } catch (error) {
@@ -100,10 +106,5 @@ export default class Validation {
     return !conditions.includes(false);
   }
 
-
-
-  public static isEmpty (string: string){
-    return string.length === 0;
-  } 
 }
 

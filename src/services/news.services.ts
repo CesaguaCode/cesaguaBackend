@@ -1,4 +1,4 @@
-import BaseService from "../utils/baseService";
+import BaseService from "../shared/baseService";
 import NewsModel from './../models/news.model';
 
 const PROCEDURES = {

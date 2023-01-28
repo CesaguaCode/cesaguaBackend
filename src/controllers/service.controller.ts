@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import ServiceModel from "../models/service.model";
 import ServiceService from "../services/service.services";
 
-import { STATUS_MSG } from './../utils/baseController';
-import BaseController from "../utils/baseController";
+import { STATUS_MSG } from '../shared/baseController';
+import BaseController from "../shared/baseController";
 
 export default class ServiceController extends BaseController {
   /**

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction, json } from "express";
-import BaseValidations from "../utils/baseValidations";
+import BaseValidations from "../shared/baseValidations";
 import Validation from "../utils/validators";
 
 export default class ServiceValidations extends BaseValidations {
@@ -19,6 +19,7 @@ export default class ServiceValidations extends BaseValidations {
 
     const details = JSON.stringify(req.body.details)
   
+   
     
 
     const params:any = {
@@ -26,12 +27,11 @@ export default class ServiceValidations extends BaseValidations {
       description: !ServiceValidations.isValidDescription(description),
       details: !ServiceValidations.isValidDetails(details),
       image: !await ServiceValidations.isValidImage(image),
-      thumbnail: !ServiceValidations.isValidImage(image),
+      thumbnail: !await ServiceValidations.isValidImage(image),
       contactId: !ServiceValidations.isValidId(contactId),
     }
 
     const errors = Object.keys(params).filter(key => params[key]);
-
     if(errors.length > 0){
       return res.status(406).json({ status:406, message: `Error, invalid ${errors.join(",")}.` });
     }
@@ -61,7 +61,7 @@ export default class ServiceValidations extends BaseValidations {
       description: !ServiceValidations.isValidDescription(description),
       details: !ServiceValidations.isValidDetails(details),
       image: !await ServiceValidations.isValidImage(image),
-      thumbnail: !ServiceValidations.isValidImage(thumbnail),
+      thumbnail: !await ServiceValidations.isValidImage(thumbnail),
       contactId: !ServiceValidations.isValidId(contactId),
     }
 

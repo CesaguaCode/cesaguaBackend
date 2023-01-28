@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import BaseValidations from "../utils/baseValidations";
+import BaseValidations from "../shared/baseValidations";
 import Validation from "../utils/validators";
 
 export default class PinValidations extends BaseValidations {

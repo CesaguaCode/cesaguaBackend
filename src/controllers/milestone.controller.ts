@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import MilestoneModel from "../models/milestone.model";
 import MilestoneService from "../services/milestone.services";
 
-import { STATUS_MSG } from "./../utils/baseController";
-import BaseController from "../utils/baseController";
+import { STATUS_MSG } from "../shared/baseController";
+import BaseController from "../shared/baseController";
 
 export default class MilestoneController extends BaseController {
   /**

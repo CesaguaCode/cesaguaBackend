@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-import BaseValidations from "../utils/baseValidations";
+import BaseValidations from "../shared/baseValidations";
 import Validation from "../utils/validators";
 
 export default class UtilsValidations extends BaseValidations {
@@ -8,7 +8,7 @@ export default class UtilsValidations extends BaseValidations {
   /**
    * Validate on POST
    */
-  public async validateContactUsMessage(req: Request, res: Response, next: NextFunction) {
+  public validateContactUsMessage(req: Request, res: Response, next: NextFunction) {
     const missing = ["name", "email", "message"].filter(key => !req.body[key] );
 
     if(missing.length > 0){

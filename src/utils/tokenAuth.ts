@@ -30,18 +30,17 @@ export default class TokenAuth {
   ) => {
     const bearerHeader = req.headers["authorization"];
 
-    
     if (!bearerHeader) {
       return res.status(403).json({ status: 403, message: "Token not found" });
     }
- 
-    const bearerToken = bearerHeader.split(" ")[1];
+   
+    const bearerToken = bearerHeader.split(" ")[1]; 
     const checkToken: any = await this.validateToken(bearerToken);
-    
+
     if (checkToken.status !== 200) {
       return  res.status(checkToken.status).json(checkToken);
     }
-    
+
     req.token = checkToken.item;
    
     next();
@@ -49,7 +48,7 @@ export default class TokenAuth {
 
   public static editorRol = async (req: Request, res: Response, next: Next) => {
 
-    if (req.token.rol < ROLES.SADMIN) {
+    if (req.token.rol < ROLES.EDITOR) {
       return res.status(403).json({ status: 403, message: "Needs to be super-admin to access" });
     }
 

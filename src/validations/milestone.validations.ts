@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import BaseValidations from "../utils/baseValidations";
+import BaseValidations from "../shared/baseValidations";
 import Validation from "../utils/validators";
 
 export default class MilestoneValidations extends BaseValidations {
@@ -8,6 +8,7 @@ export default class MilestoneValidations extends BaseValidations {
    * Validate on POST
    */
    public async validatePost(req: Request, res: Response, next: NextFunction) {
+
     const missing = ["title", "date", "description", "image"].filter(key => !req.body[key] );
 
     if(missing.length > 0){
@@ -25,13 +26,11 @@ export default class MilestoneValidations extends BaseValidations {
 
     const errors = Object.keys(params).filter(key => params[key]);
   
-    console.log(errors);
-    
     
     if(errors.length > 0){
       return res.status(406).json({ status:406, message: `Error, invalid ${errors.join(",")}.` });
     }
-
+    
     next();
   }
 
@@ -39,7 +38,7 @@ export default class MilestoneValidations extends BaseValidations {
    * Validate on PUT
    */
   public async validatePut(req: Request, res: Response, next: NextFunction) {
-    
+   
     const missing = ["title", "date", "description", "image"].filter(key => !req.body[key] );
 
     if(missing.length > 0){
@@ -102,5 +101,7 @@ export default class MilestoneValidations extends BaseValidations {
 
     return Validation.isValid(conditions);
   }
+
+  
 
 }

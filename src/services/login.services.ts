@@ -1,5 +1,5 @@
 import MilestoneModel from "../models/milestone.model";
-import BaseService from "../utils/baseService";
+import BaseService from "../shared/baseService";
 
 /**
  * List of the stored procedures of this service

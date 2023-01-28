@@ -19,7 +19,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7InVzZXJJZ
     "title": "Some service",
     "description":"Some description", 
     "details":"[]" , 
-    "image":"", 
+    "image":"data:image/jpeg;base64,/9j/", 
     "thumbnail":"",
     "contactId": "1",
     "userId": "1"
@@ -34,7 +34,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp7InVzZXJJZ
     "title": "Some updated service",
     "description":"Some updated description", 
     "details":"[]" , 
-    "image":"", 
+    "image":"data:image/jpeg;base64,/9j/", 
     "thumbnail":"",
     "contactId": "1",
     "userId": "1"

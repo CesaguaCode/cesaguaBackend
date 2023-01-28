@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import PinModel from "../models/pin.model";
 import PinService from "../services/pin.services";
-import BaseController from "../utils/baseController";
+import BaseController from "../shared/baseController";
 
-import { STATUS_MSG } from "./../utils/baseController";
+import { STATUS_MSG } from "../shared/baseController";
 
 export default class PinController extends BaseController {
   /**

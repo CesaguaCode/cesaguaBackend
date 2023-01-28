@@ -1,6 +1,7 @@
 import { Router } from "express";
 import NewsController from "../controllers/news.controller";
-import NewsValidations from './../validations/news.validations';
+import NewsValidations from "../validations/news.validations";
+
 
 export default class NewsRoutes{
 
