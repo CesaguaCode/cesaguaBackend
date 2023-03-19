@@ -1,3 +1,10 @@
+
+/**
+ * This method creates the received email template,
+ * used when the user send a mail in the contact us section
+ * 
+ * @returns String Template created
+ */
 const ReceivedMailTemplate = () => {
     return `
         <table width="100%" border="0" cellspacing="0" cellpadding="0">

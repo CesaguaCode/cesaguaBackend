@@ -70,20 +70,20 @@ export default class Mailer extends BaseMailer {
     return response;
   }
 
-    /**
-   * This method send a message that informs the user of the reception of his mail.
-   * @param receiver Receiver of the email
-   * @returns Mail Response with a boolean indicating if has succeeded
-   */
-    public async sendContactMail(messageData: ContactUsMail): Promise<MailResponse> {
-  
-      const response = await this.sendMail(
-        "Testing.node@outlook.com",
-        "Mensaje de contacto - CESAGUA",
-        `Mensaje de contacto mediante la página web. `,
-        ContactUsMailTemplate(messageData)
-      );
-  
-      return response;
-    }
+  /**
+ * This method send a message that informs the user of the reception of his mail.
+ * @param receiver Receiver of the email
+ * @returns Mail Response with a boolean indicating if has succeeded
+ */
+  public async sendContactMail(messageData: ContactUsMail): Promise<MailResponse> {
+
+    const response = await this.sendMail(
+      "Testing.node@outlook.com",
+      "Mensaje de contacto - CESAGUA",
+      `Mensaje de contacto mediante la página web. `,
+      ContactUsMailTemplate(messageData)
+    );
+
+    return response;
+  }
 }

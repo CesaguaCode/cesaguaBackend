@@ -5,7 +5,7 @@ export default class BaseMailer {
   /**
    * Reusable transporter
    */
-   protected transporter: Transporter;
+  protected transporter: Transporter;
 
   constructor() {
     this.transporter = this.getTransporter();
@@ -18,8 +18,8 @@ export default class BaseMailer {
    * @param message Plain message
    * @param template Mail template
    */
-  protected async sendMail( receiver: string, title: string, message: string, template: string ): Promise<MailResponse> {
-    
+  protected async sendMail(receiver: string, title: string, message: string, template: string): Promise<MailResponse> {
+
     try {
       let info = await this.transporter.sendMail({
         from: process.env.MAIL_USER,
@@ -45,9 +45,9 @@ export default class BaseMailer {
     return createTransport({
       host: "smtp.office365.com",
       port: 587,
-      secure: false, 
+      secure: false,
       auth: {
-        user: process.env.MAIL_USER, 
+        user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,
       },
     });

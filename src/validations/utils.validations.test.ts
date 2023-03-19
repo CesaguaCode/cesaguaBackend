@@ -8,11 +8,12 @@ const body = {
   message: "My message",
 };
 
+// This test checks if the middleware allows a valid email on the validateContactUsMessage function
 test("should correct email data -> pass the middleware", () => {
   const req: any = { body: body };
   const res: any = {
     status: (_n: number) => {
-      return { json: () => {} };
+      return { json: () => { } };
     },
   };
   const next: any = jest.fn();
@@ -22,11 +23,12 @@ test("should correct email data -> pass the middleware", () => {
   expect(next).toHaveBeenCalled();
 });
 
+// This test checks if the middleware block a missing email on the validateContactUsMessage function
 test("should missing email data -> not pass the middleware", () => {
-  const req: any = { body: {}};
+  const req: any = { body: {} };
   const res: any = {
     status: (_n: number) => {
-      return { json: () => {} };
+      return { json: () => { } };
     },
   };
   const next: any = jest.fn();
@@ -37,11 +39,12 @@ test("should missing email data -> not pass the middleware", () => {
 });
 
 
+// This test checks if the middleware block a incorrect email on the validateContactUsMessage function
 test("should incorrect email data -> not pass the middleware", () => {
-  const req: any = { body: {...body, email: '1'}};
+  const req: any = { body: { ...body, email: '1' } };
   const res: any = {
     status: (_n: number) => {
-      return { json: () => {} };
+      return { json: () => { } };
     },
   };
   const next: any = jest.fn();

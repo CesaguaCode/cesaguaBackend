@@ -1,5 +1,11 @@
 import ContactUsMail from "../../models/contactUsMail.model";
 
+/**
+ * This method creates the contact us email template
+ * 
+ * @param messageData : Data to add to the template
+ * @returns String Template created
+ */
 const ContactUsMailTemplate = (messageData:ContactUsMail) => {
     return `
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -7,8 +13,6 @@ const ContactUsMailTemplate = (messageData:ContactUsMail) => {
         <td align="center">
             <div
                 style="font-family: sans-serif;  min-height:500px;max-width: 550px;padding:2em; background-position:center 10%;">
-
-          
 
                 <h1 style="margin: .5em 0 0 0; font-size: 2em; color:#227dc2;">${messageData.name}</h1>
 

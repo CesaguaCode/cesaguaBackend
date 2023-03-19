@@ -12,6 +12,7 @@ const body = {
   userId: "1",
 };
 
+// This test checks if the middleware allow correct data on the validatePost function
 test("should correct service data -> pass the post middleware", async () => {
   const req: any = { body: body };
   const res: any = {
@@ -26,6 +27,7 @@ test("should correct service data -> pass the post middleware", async () => {
   expect(next).toHaveBeenCalled();
 });
 
+// This test checks if the middleware block missing data on the validatePost function
 test("should missing service data -> not pass the post middleware", async () => {
   const req: any = { body: {} };
   const res: any = {
@@ -40,6 +42,7 @@ test("should missing service data -> not pass the post middleware", async () => 
   expect(next).not.toHaveBeenCalled();
 });
 
+// This test checks if the middleware block incorrect data on the validatePost function
 test("should wrong service data -> not pass the post middleware", async () => {
   const req: any = { body: {...body, image: "Err"} };
   const res: any = {
@@ -54,6 +57,7 @@ test("should wrong service data -> not pass the post middleware", async () => {
   expect(next).not.toHaveBeenCalled();
 });
 
+// This test checks if the middleware allow correct data on the validatePut function
 test("should correct service data -> pass the put middleware", async () => {
   const req: any = { params: { id: 1 }, body: body };
   const res: any = {
@@ -68,6 +72,7 @@ test("should correct service data -> pass the put middleware", async () => {
   expect(next).toHaveBeenCalled();
 });
 
+// This test checks if the middleware block missing data on the validatePut function
 test("should missing service data -> not pass the put middleware", async () => {
   const req: any = { params: { id: 1 }, body: {} };
   const res: any = {
@@ -82,6 +87,7 @@ test("should missing service data -> not pass the put middleware", async () => {
   expect(next).not.toHaveBeenCalled();
 });
 
+// This test checks if the middleware block incorrect data on the validatePut function
 test("should wrong service data -> not pass the put middleware", async () => {
   const req: any = { params: { id: 1 }, body: {...body, image: "Err"} };
   const res: any = {
@@ -95,4 +101,3 @@ test("should wrong service data -> not pass the put middleware", async () => {
 
   expect(next).not.toHaveBeenCalled();
 });
-

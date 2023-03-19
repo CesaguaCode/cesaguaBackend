@@ -1,3 +1,10 @@
+
+/**
+ * This method creates the recovery email template.
+ * 
+ * @param link : Link to recover the password
+ * @returns String Template created
+ */
 const RecoveryMailTemplate = (link:String) => {
     return `
         <table width="100%" border="0" cellspacing="0" cellpadding="0">

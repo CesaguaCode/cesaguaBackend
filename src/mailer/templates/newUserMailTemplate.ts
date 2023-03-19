@@ -1,3 +1,10 @@
+
+/**
+ * This method creates the email template when a new user is added
+ * 
+ * @param link : Link to complete the account creation
+ * @returns String Template created
+ */
 const NewUserMailTemplate = (link: String) => {
   return `    
         <table width="100%" border="0" cellspacing="0" cellpadding="0">

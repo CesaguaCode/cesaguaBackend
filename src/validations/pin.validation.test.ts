@@ -11,6 +11,7 @@ const body = {
   userId: "1",
 };
 
+// This test checks if the middleware allow correct data on the validatePost function
 test("should correct pin data -> pass the post middleware", () => {
   const req: any = { body: body };
   const res: any = {
@@ -25,6 +26,7 @@ test("should correct pin data -> pass the post middleware", () => {
   expect(next).toHaveBeenCalled();
 });
 
+// This test checks if the middleware block missing data on the validatePost function
 test("should missing pin data -> not pass the post middleware",  () => {
   const req: any = { body: {} };
   const res: any = {
@@ -39,6 +41,7 @@ test("should missing pin data -> not pass the post middleware",  () => {
   expect(next).not.toHaveBeenCalled();
 });
 
+// This test checks if the middleware block incorrect data on the validatePost function
 test("should wrong pin data -> not pass the post middleware",  () => {
   const req: any = { body: {...body, position: "[]" } };
   const res: any = {
@@ -53,6 +56,7 @@ test("should wrong pin data -> not pass the post middleware",  () => {
   expect(next).not.toHaveBeenCalled();
 });
 
+// This test checks if the middleware allow correct data on the validatePut function
 test("should correct pin data -> pass the put middleware", () => {
   const req: any = { params: { id: 1 }, body: body };
   const res: any = {
@@ -67,6 +71,7 @@ test("should correct pin data -> pass the put middleware", () => {
   expect(next).toHaveBeenCalled();
 });
 
+// This test checks if the middleware block missing data on the validatePut function
 test("should missing pin data -> not pass the put middleware", () => {
   const req: any = { params: { id: 1 }, body: {} };
   const res: any = {
@@ -81,6 +86,7 @@ test("should missing pin data -> not pass the put middleware", () => {
   expect(next).not.toHaveBeenCalled();
 });
 
+// This test checks if the middleware block incorrect data on the validatePut function
 test("should wrong pin data -> not pass the post middleware",  () => {
   const req: any = { params: { id: 1 }, body: {...body, position: "[]" } };
   const res: any = {

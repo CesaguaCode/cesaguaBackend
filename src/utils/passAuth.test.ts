@@ -1,7 +1,7 @@
 import PassAuth from "./passAuth";
-
 const passAuth = new PassAuth();
 
+// This test verifies that the function should return false for a wrong password
 test("should wrong password -> be false", () => {
   const status = passAuth.comparePassword("123", {
     salt: "dSjjYVDk2OB7B/4gjR6WJg==",
@@ -14,6 +14,7 @@ test("should wrong password -> be false", () => {
 });
 
 
+// This test verifies that the function should return true for a right password
 test("should right password -> be true", () => {
 
     const pwdData = passAuth.encryptPassword("123");
@@ -21,8 +22,9 @@ test("should right password -> be true", () => {
   
     expect(status).toEqual(true);
 });
-  
+ 
 
+// This test verifies that the encrypted password should start with "000"
 test("should encrypted password -> start with 000", () => {
 
     const pwdData = passAuth.encryptPassword("123");

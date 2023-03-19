@@ -1,14 +1,24 @@
 import { Request, Response, NextFunction } from "express";
 import Validation from "../utils/validators";
 
+/**
+ * This base validation inherits all the other validations.
+ * Contains methods required on other validations
+ */
 export default class BaseValidations {
+
   /**
-   * Validate on GET or DELETE
+   * Validates if the given id is allowed
+   * 
+   * @param req 
+   * @param res 
+   * @param next 
+   * @returns Error if id is not allowed
    */
-   public validateId(req: Request, res: Response, next: NextFunction) {
+  public validateId(req: Request, res: Response, next: NextFunction) {
     let { id } = req.params;
-    
-    if( !id ){
+
+    if (!id) {
       id = req.body.id
     }
 
@@ -20,6 +30,11 @@ export default class BaseValidations {
     next();
   }
 
+  /**
+   * Validate if pass all the conditions to check if the id is valid.
+   * @param id : string
+   * @returns Boolean
+   */
   protected static isValidId(id: string) {
     const conditions = [
       Validation.isNumber(id),
